@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj186.mapper.CarMapper">
+  <resultMap id="BaseResultMap" type="com.bj186.pojo.Car">
+    <id column="Car_id" jdbcType="INTEGER" property="carId" />
+    <result column="Car_card" jdbcType="VARCHAR" property="carCard" />
+    <result column="Car_exhaust" jdbcType="VARCHAR" property="carExhaust" />
+    <result column="Car_pid" jdbcType="INTEGER" property="carPid" />
+    <result column="Car_uid" jdbcType="INTEGER" property="carUid" />
+    <result column="Car_startdate" jdbcType="TIMESTAMP" property="carStartdate" />
+    <result column="Car_enddate" jdbcType="TIMESTAMP" property="carEnddate" />
+    <result column="Car_other1" jdbcType="VARCHAR" property="carOther1" />
+    <result column="Car_other2" jdbcType="VARCHAR" property="carOther2" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Car_id, Car_card, Car_exhaust, Car_pid, Car_uid, Car_startdate, Car_enddate, Car_other1, 
+    Car_other2
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car
+    where Car_id = #{carId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from car
+    where Car_id = #{carId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bj186.pojo.Car">
+    insert into car (Car_id, Car_card, Car_exhaust, 
+      Car_pid, Car_uid, Car_startdate, 
+      Car_enddate, Car_other1, Car_other2
+      )
+    values (#{carId,jdbcType=INTEGER}, #{carCard,jdbcType=VARCHAR}, #{carExhaust,jdbcType=VARCHAR}, 
+      #{carPid,jdbcType=INTEGER}, #{carUid,jdbcType=INTEGER}, #{carStartdate,jdbcType=TIMESTAMP}, 
+      #{carEnddate,jdbcType=TIMESTAMP}, #{carOther1,jdbcType=VARCHAR}, #{carOther2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bj186.pojo.Car">
+    insert into car
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="carId != null">
+        Car_id,
+      </if>
+      <if test="carCard != null">
+        Car_card,
+      </if>
+      <if test="carExhaust != null">
+        Car_exhaust,
+      </if>
+      <if test="carPid != null">
+        Car_pid,
+      </if>
+      <if test="carUid != null">
+        Car_uid,
+      </if>
+      <if test="carStartdate != null">
+        Car_startdate,
+      </if>
+      <if test="carEnddate != null">
+        Car_enddate,
+      </if>
+      <if test="carOther1 != null">
+        Car_other1,
+      </if>
+      <if test="carOther2 != null">
+        Car_other2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="carId != null">
+        #{carId,jdbcType=INTEGER},
+      </if>
+      <if test="carCard != null">
+        #{carCard,jdbcType=VARCHAR},
+      </if>
+      <if test="carExhaust != null">
+        #{carExhaust,jdbcType=VARCHAR},
+      </if>
+      <if test="carPid != null">
+        #{carPid,jdbcType=INTEGER},
+      </if>
+      <if test="carUid != null">
+        #{carUid,jdbcType=INTEGER},
+      </if>
+      <if test="carStartdate != null">
+        #{carStartdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carEnddate != null">
+        #{carEnddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carOther1 != null">
+        #{carOther1,jdbcType=VARCHAR},
+      </if>
+      <if test="carOther2 != null">
+        #{carOther2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Car">
+    update car
+    <set>
+      <if test="carCard != null">
+        Car_card = #{carCard,jdbcType=VARCHAR},
+      </if>
+      <if test="carExhaust != null">
+        Car_exhaust = #{carExhaust,jdbcType=VARCHAR},
+      </if>
+      <if test="carPid != null">
+        Car_pid = #{carPid,jdbcType=INTEGER},
+      </if>
+      <if test="carUid != null">
+        Car_uid = #{carUid,jdbcType=INTEGER},
+      </if>
+      <if test="carStartdate != null">
+        Car_startdate = #{carStartdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carEnddate != null">
+        Car_enddate = #{carEnddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="carOther1 != null">
+        Car_other1 = #{carOther1,jdbcType=VARCHAR},
+      </if>
+      <if test="carOther2 != null">
+        Car_other2 = #{carOther2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Car_id = #{carId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.Car">
+    update car
+    set Car_card = #{carCard,jdbcType=VARCHAR},
+      Car_exhaust = #{carExhaust,jdbcType=VARCHAR},
+      Car_pid = #{carPid,jdbcType=INTEGER},
+      Car_uid = #{carUid,jdbcType=INTEGER},
+      Car_startdate = #{carStartdate,jdbcType=TIMESTAMP},
+      Car_enddate = #{carEnddate,jdbcType=TIMESTAMP},
+      Car_other1 = #{carOther1,jdbcType=VARCHAR},
+      Car_other2 = #{carOther2,jdbcType=VARCHAR}
+    where Car_id = #{carId,jdbcType=INTEGER}
+  </update>
+</mapper>

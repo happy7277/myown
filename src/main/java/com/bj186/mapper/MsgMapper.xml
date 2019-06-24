@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj186.mapper.MsgMapper">
+  <resultMap id="BaseResultMap" type="com.bj186.pojo.Msg">
+    <id column="msg_id" jdbcType="INTEGER" property="msgId" />
+    <result column="msg_title" jdbcType="VARCHAR" property="msgTitle" />
+    <result column="msg _partstarttime" jdbcType="TIMESTAMP" property="msgPartstarttime" />
+    <result column="msg _partendtime" jdbcType="TIMESTAMP" property="msgPartendtime" />
+    <result column="msg_createtime" jdbcType="TIMESTAMP" property="msgCreatetime" />
+    <result column="msg _partstate" jdbcType="INTEGER" property="msgPartstate" />
+    <result column="msg _admin" jdbcType="VARCHAR" property="msgAdmin" />
+    <result column="msg_class" jdbcType="INTEGER" property="msgClass" />
+    <result column="msg_other1" jdbcType="VARCHAR" property="msgOther1" />
+    <result column="msg_other2" jdbcType="VARCHAR" property="msgOther2" />
+    <result column="msg_other3" jdbcType="VARCHAR" property="msgOther3" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msg_id, msg_title, "msg _partstarttime", "msg _partendtime", msg_createtime, "msg _partstate", 
+    "msg _admin", msg_class, msg_other1, msg_other2, msg_other3
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from msg
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from msg
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bj186.pojo.Msg">
+    insert into msg (msg_id, msg_title, "msg _partstarttime", 
+      "msg _partendtime", msg_createtime, "msg _partstate", 
+      "msg _admin", msg_class, msg_other1, 
+      msg_other2, msg_other3)
+    values (#{msgId,jdbcType=INTEGER}, #{msgTitle,jdbcType=VARCHAR}, #{msgPartstarttime,jdbcType=TIMESTAMP}, 
+      #{msgPartendtime,jdbcType=TIMESTAMP}, #{msgCreatetime,jdbcType=TIMESTAMP}, #{msgPartstate,jdbcType=INTEGER}, 
+      #{msgAdmin,jdbcType=VARCHAR}, #{msgClass,jdbcType=INTEGER}, #{msgOther1,jdbcType=VARCHAR}, 
+      #{msgOther2,jdbcType=VARCHAR}, #{msgOther3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bj186.pojo.Msg">
+    insert into msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        msg_id,
+      </if>
+      <if test="msgTitle != null">
+        msg_title,
+      </if>
+      <if test="msgPartstarttime != null">
+        "msg _partstarttime",
+      </if>
+      <if test="msgPartendtime != null">
+        "msg _partendtime",
+      </if>
+      <if test="msgCreatetime != null">
+        msg_createtime,
+      </if>
+      <if test="msgPartstate != null">
+        "msg _partstate",
+      </if>
+      <if test="msgAdmin != null">
+        "msg _admin",
+      </if>
+      <if test="msgClass != null">
+        msg_class,
+      </if>
+      <if test="msgOther1 != null">
+        msg_other1,
+      </if>
+      <if test="msgOther2 != null">
+        msg_other2,
+      </if>
+      <if test="msgOther3 != null">
+        msg_other3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgId != null">
+        #{msgId,jdbcType=INTEGER},
+      </if>
+      <if test="msgTitle != null">
+        #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgPartstarttime != null">
+        #{msgPartstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgPartendtime != null">
+        #{msgPartendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgCreatetime != null">
+        #{msgCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgPartstate != null">
+        #{msgPartstate,jdbcType=INTEGER},
+      </if>
+      <if test="msgAdmin != null">
+        #{msgAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="msgClass != null">
+        #{msgClass,jdbcType=INTEGER},
+      </if>
+      <if test="msgOther1 != null">
+        #{msgOther1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgOther2 != null">
+        #{msgOther2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgOther3 != null">
+        #{msgOther3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Msg">
+    update msg
+    <set>
+      <if test="msgTitle != null">
+        msg_title = #{msgTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="msgPartstarttime != null">
+        "msg _partstarttime" = #{msgPartstarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgPartendtime != null">
+        "msg _partendtime" = #{msgPartendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgCreatetime != null">
+        msg_createtime = #{msgCreatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgPartstate != null">
+        "msg _partstate" = #{msgPartstate,jdbcType=INTEGER},
+      </if>
+      <if test="msgAdmin != null">
+        "msg _admin" = #{msgAdmin,jdbcType=VARCHAR},
+      </if>
+      <if test="msgClass != null">
+        msg_class = #{msgClass,jdbcType=INTEGER},
+      </if>
+      <if test="msgOther1 != null">
+        msg_other1 = #{msgOther1,jdbcType=VARCHAR},
+      </if>
+      <if test="msgOther2 != null">
+        msg_other2 = #{msgOther2,jdbcType=VARCHAR},
+      </if>
+      <if test="msgOther3 != null">
+        msg_other3 = #{msgOther3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.Msg">
+    update msg
+    set msg_title = #{msgTitle,jdbcType=VARCHAR},
+      "msg _partstarttime" = #{msgPartstarttime,jdbcType=TIMESTAMP},
+      "msg _partendtime" = #{msgPartendtime,jdbcType=TIMESTAMP},
+      msg_createtime = #{msgCreatetime,jdbcType=TIMESTAMP},
+      "msg _partstate" = #{msgPartstate,jdbcType=INTEGER},
+      "msg _admin" = #{msgAdmin,jdbcType=VARCHAR},
+      msg_class = #{msgClass,jdbcType=INTEGER},
+      msg_other1 = #{msgOther1,jdbcType=VARCHAR},
+      msg_other2 = #{msgOther2,jdbcType=VARCHAR},
+      msg_other3 = #{msgOther3,jdbcType=VARCHAR}
+    where msg_id = #{msgId,jdbcType=INTEGER}
+  </update>
+</mapper>

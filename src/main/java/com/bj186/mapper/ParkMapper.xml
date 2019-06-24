@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj186.mapper.ParkMapper">
+  <resultMap id="BaseResultMap" type="com.bj186.pojo.Park">
+    <id column="Park_id" jdbcType="INTEGER" property="parkId" />
+    <result column="Park_uid" jdbcType="INTEGER" property="parkUid" />
+    <result column="Park_local" jdbcType="VARCHAR" property="parkLocal" />
+    <result column="Park_price" jdbcType="VARCHAR" property="parkPrice" />
+    <result column="Park_saledate" jdbcType="VARCHAR" property="parkSaledate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Park_id, Park_uid, Park_local, Park_price, Park_saledate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from park
+    where Park_id = #{parkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from park
+    where Park_id = #{parkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bj186.pojo.Park">
+    insert into park (Park_id, Park_uid, Park_local, 
+      Park_price, Park_saledate)
+    values (#{parkId,jdbcType=INTEGER}, #{parkUid,jdbcType=INTEGER}, #{parkLocal,jdbcType=VARCHAR}, 
+      #{parkPrice,jdbcType=VARCHAR}, #{parkSaledate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bj186.pojo.Park">
+    insert into park
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="parkId != null">
+        Park_id,
+      </if>
+      <if test="parkUid != null">
+        Park_uid,
+      </if>
+      <if test="parkLocal != null">
+        Park_local,
+      </if>
+      <if test="parkPrice != null">
+        Park_price,
+      </if>
+      <if test="parkSaledate != null">
+        Park_saledate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="parkId != null">
+        #{parkId,jdbcType=INTEGER},
+      </if>
+      <if test="parkUid != null">
+        #{parkUid,jdbcType=INTEGER},
+      </if>
+      <if test="parkLocal != null">
+        #{parkLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPrice != null">
+        #{parkPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="parkSaledate != null">
+        #{parkSaledate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Park">
+    update park
+    <set>
+      <if test="parkUid != null">
+        Park_uid = #{parkUid,jdbcType=INTEGER},
+      </if>
+      <if test="parkLocal != null">
+        Park_local = #{parkLocal,jdbcType=VARCHAR},
+      </if>
+      <if test="parkPrice != null">
+        Park_price = #{parkPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="parkSaledate != null">
+        Park_saledate = #{parkSaledate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Park_id = #{parkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.Park">
+    update park
+    set Park_uid = #{parkUid,jdbcType=INTEGER},
+      Park_local = #{parkLocal,jdbcType=VARCHAR},
+      Park_price = #{parkPrice,jdbcType=VARCHAR},
+      Park_saledate = #{parkSaledate,jdbcType=VARCHAR}
+    where Park_id = #{parkId,jdbcType=INTEGER}
+  </update>
+</mapper>

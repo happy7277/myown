@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj186.mapper.MsgCountMapper">
+  <resultMap id="BaseResultMap" type="com.bj186.pojo.MsgCount">
+    <id column="msgcount_id" jdbcType="INTEGER" property="msgcountId" />
+    <result column="msgcount_pid" jdbcType="INTEGER" property="msgcountPid" />
+    <result column="msgcount_uid" jdbcType="INTEGER" property="msgcountUid" />
+    <result column="msgcount_readtime" jdbcType="TIMESTAMP" property="msgcountReadtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msgcount_id, msgcount_pid, msgcount_uid, msgcount_readtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from msgcount
+    where msgcount_id = #{msgcountId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from msgcount
+    where msgcount_id = #{msgcountId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bj186.pojo.MsgCount">
+    insert into msgcount (msgcount_id, msgcount_pid, msgcount_uid, 
+      msgcount_readtime)
+    values (#{msgcountId,jdbcType=INTEGER}, #{msgcountPid,jdbcType=INTEGER}, #{msgcountUid,jdbcType=INTEGER}, 
+      #{msgcountReadtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bj186.pojo.MsgCount">
+    insert into msgcount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="msgcountId != null">
+        msgcount_id,
+      </if>
+      <if test="msgcountPid != null">
+        msgcount_pid,
+      </if>
+      <if test="msgcountUid != null">
+        msgcount_uid,
+      </if>
+      <if test="msgcountReadtime != null">
+        msgcount_readtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="msgcountId != null">
+        #{msgcountId,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountPid != null">
+        #{msgcountPid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountUid != null">
+        #{msgcountUid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountReadtime != null">
+        #{msgcountReadtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.MsgCount">
+    update msgcount
+    <set>
+      <if test="msgcountPid != null">
+        msgcount_pid = #{msgcountPid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountUid != null">
+        msgcount_uid = #{msgcountUid,jdbcType=INTEGER},
+      </if>
+      <if test="msgcountReadtime != null">
+        msgcount_readtime = #{msgcountReadtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where msgcount_id = #{msgcountId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.MsgCount">
+    update msgcount
+    set msgcount_pid = #{msgcountPid,jdbcType=INTEGER},
+      msgcount_uid = #{msgcountUid,jdbcType=INTEGER},
+      msgcount_readtime = #{msgcountReadtime,jdbcType=TIMESTAMP}
+    where msgcount_id = #{msgcountId,jdbcType=INTEGER}
+  </update>
+</mapper>

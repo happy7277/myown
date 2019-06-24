@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bj186.mapper.AppealMapper">
+  <resultMap id="BaseResultMap" type="com.bj186.pojo.Appeal">
+    <id column="appeal_id" jdbcType="INTEGER" property="appealId" />
+    <result column="appeal_uid" jdbcType="INTEGER" property="appealUid" />
+    <result column="appeal_title" jdbcType="VARCHAR" property="appealTitle" />
+    <result column="appeal_date" jdbcType="DATE" property="appealDate" />
+    <result column="appeal_content" jdbcType="VARCHAR" property="appealContent" />
+    <result column="appeal_state" jdbcType="INTEGER" property="appealState" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="appeal_eva" jdbcType="VARCHAR" property="appealEva" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    appeal_id, appeal_uid, appeal_title, appeal_date, appeal_content, appeal_state, admin_id, 
+    appeal_eva
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from appeal
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from appeal
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bj186.pojo.Appeal">
+    insert into appeal (appeal_id, appeal_uid, appeal_title, 
+      appeal_date, appeal_content, appeal_state, 
+      admin_id, appeal_eva)
+    values (#{appealId,jdbcType=INTEGER}, #{appealUid,jdbcType=INTEGER}, #{appealTitle,jdbcType=VARCHAR}, 
+      #{appealDate,jdbcType=DATE}, #{appealContent,jdbcType=VARCHAR}, #{appealState,jdbcType=INTEGER}, 
+      #{adminId,jdbcType=INTEGER}, #{appealEva,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bj186.pojo.Appeal">
+    insert into appeal
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="appealId != null">
+        appeal_id,
+      </if>
+      <if test="appealUid != null">
+        appeal_uid,
+      </if>
+      <if test="appealTitle != null">
+        appeal_title,
+      </if>
+      <if test="appealDate != null">
+        appeal_date,
+      </if>
+      <if test="appealContent != null">
+        appeal_content,
+      </if>
+      <if test="appealState != null">
+        appeal_state,
+      </if>
+      <if test="adminId != null">
+        admin_id,
+      </if>
+      <if test="appealEva != null">
+        appeal_eva,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="appealId != null">
+        #{appealId,jdbcType=INTEGER},
+      </if>
+      <if test="appealUid != null">
+        #{appealUid,jdbcType=INTEGER},
+      </if>
+      <if test="appealTitle != null">
+        #{appealTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="appealDate != null">
+        #{appealDate,jdbcType=DATE},
+      </if>
+      <if test="appealContent != null">
+        #{appealContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appealState != null">
+        #{appealState,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null">
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="appealEva != null">
+        #{appealEva,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Appeal">
+    update appeal
+    <set>
+      <if test="appealUid != null">
+        appeal_uid = #{appealUid,jdbcType=INTEGER},
+      </if>
+      <if test="appealTitle != null">
+        appeal_title = #{appealTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="appealDate != null">
+        appeal_date = #{appealDate,jdbcType=DATE},
+      </if>
+      <if test="appealContent != null">
+        appeal_content = #{appealContent,jdbcType=VARCHAR},
+      </if>
+      <if test="appealState != null">
+        appeal_state = #{appealState,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null">
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="appealEva != null">
+        appeal_eva = #{appealEva,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.Appeal">
+    update appeal
+    set appeal_uid = #{appealUid,jdbcType=INTEGER},
+      appeal_title = #{appealTitle,jdbcType=VARCHAR},
+      appeal_date = #{appealDate,jdbcType=DATE},
+      appeal_content = #{appealContent,jdbcType=VARCHAR},
+      appeal_state = #{appealState,jdbcType=INTEGER},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      appeal_eva = #{appealEva,jdbcType=VARCHAR}
+    where appeal_id = #{appealId,jdbcType=INTEGER}
+  </update>
+</mapper>

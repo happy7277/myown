@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- Spring IOC对shiro的集成 -->
+    <!--<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">-->
+        <!--<constructor-arg value="COOKIE_NAME" />-->
+        <!--&lt;!&ndash; 保证该系统不会受到跨域的脚本操作攻击 &ndash;&gt;-->
+        <!--<property name="httpOnly" value="true" />-->
+        <!--&lt;!&ndash; rememberMe 30天 &ndash;&gt;-->
+        <!--<property name="maxAge" value="2592000" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; rememberMe管理器 &ndash;&gt;-->
+    <!--<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">-->
+        <!--<property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />-->
+        <!--<property name="cookie" ref="rememberMeCookie" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 配置ModularRealmAuthenticator，可实现多Realm认证 &ndash;&gt;-->
+    <!--<bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">-->
+        <!--&lt;!&ndash; 配置Realm认证策略 &ndash;&gt;-->
+        <!--<property name="authenticationStrategy">-->
+            <!--<bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 配置自定义Realm，自定义Realm需要继承org.apache.shiro.realm.AuthorizingRealm &ndash;&gt;-->
+    <!--<bean id="userRealm" class="com.bj186.shiro.UserRealm">-->
+        <!--&lt;!&ndash; 配置密码匹配器 &ndash;&gt;-->
+        <!--<property name="credentialsMatcher">-->
+            <!--<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">-->
+                <!--&lt;!&ndash; 加密算法为MD5 &ndash;&gt;-->
+                <!--<property name="hashAlgorithmName" value="MD5"/>-->
+                <!--&lt;!&ndash; 加密次数 &ndash;&gt;-->
+                <!--<property name="hashIterations" value="11"/>-->
+            <!--</bean>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; 配置权限管理器 &ndash;&gt;-->
+    <!--<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">-->
+        <!--&lt;!&ndash; 加载上面配置好的认证策略&ndash;&gt;-->
+        <!--<property name="authenticator" ref="authenticator"/>-->
+        <!--&lt;!&ndash; 加载自定义的认证类 &ndash;&gt;-->
+        <!--<property name="realms">-->
+            <!--<list>-->
+                <!--<ref bean="userRealm" />-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="rememberMeManager" ref="rememberMeManager" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash; Shiro生命周期处理器 &ndash;&gt;-->
+    <!--&lt;!&ndash; 配置lifecycleBeanPostProcessor，Shiro的生命周期管理器 &ndash;&gt;-->
+    <!--<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />-->
+
+    <!--&lt;!&ndash; 启用Spring IOC容器对Shiro管理，但必须配置了lifecycleBeanPostProcessor后才可以使用 &ndash;&gt;-->
+    <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor" />-->
+
+    <!--&lt;!&ndash; 开启securityManager管理所有用户的安全操作,securityManager来自Spring IOC容器的配置 &ndash;&gt;-->
+    <!--<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">-->
+        <!--<property name="securityManager" ref="securityManager" />-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;-->
+        <!--配置shiro过滤器,这里的id必须与web.xml中的shiroFilter filterName一致-->
+    <!--&ndash;&gt;-->
+    <!--<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">-->
+        <!--<property name="securityManager" ref="securityManager" />-->
+        <!--<property name="loginUrl" value="/login.jsp" />-->
+        <!--<property name="successUrl" value="/index.jsp" />-->
+        <!--<property name="unauthorizedUrl" value="/error.jsp" />-->
+        <!--&lt;!&ndash;-->
+            <!--配置需要受保护的页面-->
+            <!--以及访问这些页面需要的权限-->
+            <!--1) anon  可以匿名访问的页面-->
+            <!--2) authc 必须认证后才可以访问的页面-->
+        <!--&ndash;&gt;-->
+        <!--<property name="filterChainDefinitions">-->
+            <!--<value>-->
+                <!--&lt;!&ndash;加载静态资源&ndash;&gt;-->
+                <!--/js/** = anon-->
+                <!--/css/** = anon-->
+                <!--/img/** = anon-->
+                <!--&lt;!&ndash;加载不需要认证的页面&ndash;&gt;-->
+                <!--/login.jsp = anon-->
+                <!--/login = anon-->
+                <!--/reg.jsp = anon-->
+                <!--/reg = anon-->
+                <!--/logout = logout-->
+                <!--&lt;!&ndash;权限控制&ndash;&gt;-->
+
+                <!--/admin.jsp = roles[admin]-->
+                <!--/items/** = roles[admin]-->
+                <!--/user.jsp = roles[user]-->
+                <!--/list.jsp = roles[all]-->
+                <!--/call/**=roles[call]-->
+
+
+                <!--&lt;!&ndash;除以上配置外，其他请求全部必须认证&ndash;&gt;-->
+                <!--/** = authc-->
+            <!--</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+</beans>
