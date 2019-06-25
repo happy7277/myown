@@ -9,6 +9,7 @@
     <result column="user_dress" jdbcType="VARCHAR" property="userDress" />
     <result column="user_sise" jdbcType="VARCHAR" property="userSise" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="user_auth" jdbcType="INTEGER" property="auth" />
   </resultMap>
   <sql id="Base_Column_List">
     user_id, user_name, user_password, user_phonenuber, user_dress, user_sise, user_type
@@ -120,9 +121,9 @@
   <select id="getUser" resultMap="BaseResultMap" parameterType="String">
     select * from user where user_name = #{username}
   </select>
-  <select id="getall" resultMap="BaseResultMap" parameterType="String">
+  <select id="getall11" resultMap="BaseResultMap" parameterType="String">
     select * from user where user_name = #{username}
-  </select>
+</select>
 
 
 </mapper>

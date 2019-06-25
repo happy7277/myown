@@ -7,7 +7,7 @@
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://172.16.11.94:3306/property?useSSL=false" />
         <property name="username" value="root" />
-        <property name="password" value="root" />
+        <property name="password" value="123456" />
     </bean>
 
     <!--2. 配置mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源 -->

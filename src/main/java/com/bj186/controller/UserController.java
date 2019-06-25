@@ -1,5 +1,6 @@
 package com.bj186.controller;
 
+
 import com.bj186.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 @Controller
 public class UserController {
 
@@ -34,7 +34,7 @@ public class UserController {
             upToken.setRememberMe(true);                                                     // 用户登录时效性
             try {
                 currentUser.login(upToken);    // 调用realm认证用户权限
-                return "redirect:/index.jsp";
+                return "redirect:/index.html";
             } catch (IncorrectCredentialsException ice) {
                 System.out.println("用户名/密码不匹配！");
             } catch (LockedAccountException lae) {
@@ -45,16 +45,16 @@ public class UserController {
                 System.out.println(ae.getMessage());
             }
         }
-        return "redirect:/login.jsp";
+        return "redirect:/login.html";
     }
 
 
-    @RequestMapping(value = "/reg")
+   /* @RequestMapping(value = "/reg")
     public String regUser(@RequestParam String username, @RequestParam String password) {        System.out.println("username=" + username);
         System.out.println("password=" + password);
         userService.regUser(username, md5(username, password));
-        return "redirect:/login.jsp";
-    }
+        return "redirect:/login.html";
+    }*/
 
     // 注册时，进行shiro加密，返回加密后的结果，如果在加入shiro之前，存在用户密码不是此方式加密的，那么将无法登录
     // 使用用户名作为盐值

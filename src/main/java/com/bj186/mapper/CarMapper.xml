@@ -27,7 +27,7 @@
     where Car_id = #{carId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.bj186.pojo.Car">
-    insert into car (Car_id, Car_card, Car_exhaust, 
+    insert into car (null, Car_card, Car_exhaust,
       Car_pid, Car_uid, Car_startdate, 
       Car_enddate, Car_other1, Car_other2
       )
@@ -139,4 +139,19 @@
       Car_other2 = #{carOther2,jdbcType=VARCHAR}
     where Car_id = #{carId,jdbcType=INTEGER}
   </update>
+  <select id="selectCarList" resultMap="BaseResultMap">
+    select * from car
+  </select>
+
+  <select id="selectCarByUid" resultMap="BaseResultMap" parameterType="Integer">
+    select * from car where car_uid = #{car_uid}
+  </select>
+
+  <select id="selectCarBycarcard" resultMap="BaseResultMap" parameterType="String">
+    select * from car where car_card = #{car_card}
+  </select>
+
+<select id="selectCarByPid" resultMap="BaseResultMap" parameterType="Integer">
+  select * from car where car_pid = #{car_pid}
+</select>
 </mapper>

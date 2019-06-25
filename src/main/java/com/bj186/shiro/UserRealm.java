@@ -57,11 +57,14 @@ public class UserRealm extends AuthorizingRealm {
        根据不同的权限判断可访问的资源
        info.addRole("1")中的形参值，在spring_database.xml中shiroFilter进行配置
     */
-        if("1".equals(auth)){
-            info.addRole("admin");
+        if(auth == 1){
+            info.addRole("superadmin");
             info.addRole("call");
         }
-        if("2".equals(auth)){
+        if(auth == 2){
+            info.addRole("admin");
+        }
+        if(auth == 3){
             info.addRole("user");
         }
         info.addRole("all");

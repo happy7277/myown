@@ -21,6 +21,21 @@ public class Car {
 
     private String carOther2;
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "carId=" + carId +
+                ", carCard='" + carCard + '\'' +
+                ", carExhaust='" + carExhaust + '\'' +
+                ", carPid=" + carPid +
+                ", carUid=" + carUid +
+                ", carStartdate=" + carStartdate +
+                ", carEnddate=" + carEnddate +
+                ", carOther1='" + carOther1 + '\'' +
+                ", carOther2='" + carOther2 + '\'' +
+                '}';
+    }
+
     public Integer getCarId() {
         return carId;
     }

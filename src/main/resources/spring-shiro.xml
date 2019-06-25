@@ -68,7 +68,7 @@
     -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/html/user/login.html" />
+        <property name="loginUrl" value="/html/login.html" />
         <property name="successUrl" value="/html/index.html" />
         <property name="unauthorizedUrl" value="/html/error.html" />
         <!--
@@ -84,18 +84,19 @@
                 /css/** = anon
                 /img/** = anon
                 <!--加载不需要认证的页面-->
-                /html/user/login.html = anon
+                /login.html = anon
                 /user/login = anon
                 /html/user/reg.html = anon
                 /user/reg = anon
+                /index.html = anon
                 /logout = logout
                 <!--权限控制-->
 
-                /admin.html = roles[admin]
+                /admin.html = roles[superadmin]
                 /items/** = roles[admin]
                 /user.html = roles[user]
                 /list.html = roles[all]
-                /call/**=roles[call]
+                /call/**= anon
 
 
                 <!--除以上配置外，其他请求全部必须认证-->

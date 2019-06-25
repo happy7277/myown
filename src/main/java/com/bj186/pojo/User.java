@@ -15,6 +15,30 @@ public class User {
 
     private Integer userType;
 
+    private String auth;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userPhonenuber='" + userPhonenuber + '\'' +
+                ", userDress='" + userDress + '\'' +
+                ", userSise='" + userSise + '\'' +
+                ", userType=" + userType +
+                ", auth='" + auth + '\'' +
+                '}';
+    }
+
+    public String getAuth() {
+        return auth;
+    }
+
+    public void setAuth(String auth) {
+        this.auth = auth;
+    }
+
     public Integer getUserId() {
         return userId;
     }
