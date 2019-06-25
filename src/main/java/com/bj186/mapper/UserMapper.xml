@@ -121,7 +121,7 @@
     select * from user where user_name = #{username}
   </select>
   <select id="getall">
-
+select
   </select>
 
 </mapper>
