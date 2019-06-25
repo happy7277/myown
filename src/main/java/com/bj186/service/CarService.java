@@ -14,4 +14,6 @@ public interface CarService {
     List<Car> selectCarList();
 
     int insert(Car car);//新登记车辆
+
+    int updateCar(Car car);//修改登记车辆信息
 }

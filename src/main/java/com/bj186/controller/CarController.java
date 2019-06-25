@@ -36,5 +36,9 @@ public class CarController {
         return carService.insert(car);
     }
 
+    int updateCar(Car car){
+         return carService.updateCar(car);
+    }
+
 
 }

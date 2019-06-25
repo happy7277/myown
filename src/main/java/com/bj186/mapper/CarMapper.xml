@@ -12,31 +12,12 @@
     <result column="Car_other1" jdbcType="VARCHAR" property="carOther1" />
     <result column="Car_other2" jdbcType="VARCHAR" property="carOther2" />
   </resultMap>
-  <sql id="Base_Column_List">
-    Car_id, Car_card, Car_exhaust, Car_pid, Car_uid, Car_startdate, Car_enddate, Car_other1, 
-    Car_other2
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from car
-    where Car_id = #{carId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from car
-    where Car_id = #{carId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.bj186.pojo.Car">
-    insert into car (null, Car_card, Car_exhaust,
-      Car_pid, Car_uid, Car_startdate, 
-      Car_enddate, Car_other1, Car_other2
-      )
-    values (#{carId,jdbcType=INTEGER}, #{carCard,jdbcType=VARCHAR}, #{carExhaust,jdbcType=VARCHAR}, 
-      #{carPid,jdbcType=INTEGER}, #{carUid,jdbcType=INTEGER}, #{carStartdate,jdbcType=TIMESTAMP}, 
-      #{carEnddate,jdbcType=TIMESTAMP}, #{carOther1,jdbcType=VARCHAR}, #{carOther2,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.bj186.pojo.Car">
+
+
+
+
+<!--  增加车辆信息的方法-->
+  <insert id="insertCar" parameterType="com.bj186.pojo.Car">
     insert into car
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="carId != null">
@@ -97,7 +78,10 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Car">
+
+
+<!--  修改车辆信息的方法-->
+  <update id="updateCar" parameterType="com.bj186.pojo.Car">
     update car
     <set>
       <if test="carCard != null">
@@ -127,31 +111,27 @@
     </set>
     where Car_id = #{carId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.Car">
-    update car
-    set Car_card = #{carCard,jdbcType=VARCHAR},
-      Car_exhaust = #{carExhaust,jdbcType=VARCHAR},
-      Car_pid = #{carPid,jdbcType=INTEGER},
-      Car_uid = #{carUid,jdbcType=INTEGER},
-      Car_startdate = #{carStartdate,jdbcType=TIMESTAMP},
-      Car_enddate = #{carEnddate,jdbcType=TIMESTAMP},
-      Car_other1 = #{carOther1,jdbcType=VARCHAR},
-      Car_other2 = #{carOther2,jdbcType=VARCHAR}
-    where Car_id = #{carId,jdbcType=INTEGER}
-  </update>
-  <select id="selectCarList" resultMap="BaseResultMap">
+
+<!--  查找车辆信息的方法-->
+  <select id="selectCar" parameterType="com.bj186.pojo.Car" resultType="com.bj186.pojo.Car">
     select * from car
+    <where>
+
+      <if test="car_uid != null">
+        and car_uid = #{car_uid}
+      </if>
+      <if test="car_pid != null">
+        and car_pid = #{car_pid}
+      </if>
+      <if test="car_card != null">
+        and car_card= #{car_card}
+      </if>
+      <if test="car_id != null">
+        and car_id= #{car_id}
+      </if>
+    </where>
   </select>
 
-  <select id="selectCarByUid" resultMap="BaseResultMap" parameterType="Integer">
-    select * from car where car_uid = #{car_uid}
-  </select>
 
-  <select id="selectCarBycarcard" resultMap="BaseResultMap" parameterType="String">
-    select * from car where car_card = #{car_card}
-  </select>
 
-<select id="selectCarByPid" resultMap="BaseResultMap" parameterType="Integer">
-  select * from car where car_pid = #{car_pid}
-</select>
 </mapper>

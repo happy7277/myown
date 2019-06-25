@@ -42,4 +42,9 @@ public class CarServiceImpl implements CarService {
 
         return this.carMapper.insert(car);
     }
+
+    @Override
+    public int updateCar(Car car) {
+        return this.carMapper.updateCar(car);
+    }
 }
