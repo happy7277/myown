@@ -120,8 +120,9 @@
   <select id="getUser" resultMap="BaseResultMap" parameterType="String">
     select * from user where user_name = #{username}
   </select>
-  <select id="getall">
-select
+  <select id="getall" resultMap="BaseResultMap" parameterType="String">
+    select * from user where user_name = #{username}
   </select>
+
 
 </mapper>
