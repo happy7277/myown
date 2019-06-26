@@ -1,10 +1,10 @@
-package com.bj186.mapper;
+package com.bj186.service;
 
 import com.bj186.pojo.Access;
 
 import java.util.List;
 
-public interface AccessMapper {
+public interface AccessService {
 
     int insertAccess(Access access);
 
@@ -13,6 +13,4 @@ public interface AccessMapper {
     List<Access> selectAccessList(Access access);
 
     List<Access> selectAccess(Access access);
-
-
 }

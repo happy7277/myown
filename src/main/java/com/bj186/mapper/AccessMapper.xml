@@ -10,29 +10,11 @@
     <result column="Access_other1" jdbcType="VARCHAR" property="accessOther1" />
     <result column="Access_other2" jdbcType="VARCHAR" property="accessOther2" />
   </resultMap>
-  <sql id="Base_Column_List">
-    Access_id, Access_carcard, Access_startdate, Access_enddate, Access_cost, Access_other1, 
-    Access_other2
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from access
-    where Access_id = #{accessId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from access
-    where Access_id = #{accessId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.bj186.pojo.Access">
-    insert into access (Access_id, Access_carcard, Access_startdate, 
-      Access_enddate, Access_cost, Access_other1, 
-      Access_other2)
-    values (#{accessId,jdbcType=INTEGER}, #{accessCarcard,jdbcType=VARCHAR}, #{accessStartdate,jdbcType=TIMESTAMP}, 
-      #{accessEnddate,jdbcType=TIMESTAMP}, #{accessCost,jdbcType=DECIMAL}, #{accessOther1,jdbcType=VARCHAR}, 
-      #{accessOther2,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.bj186.pojo.Access">
+
+
+
+
+  <insert id="insertAccess" parameterType="com.bj186.pojo.Access">
     insert into access
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="accessId != null">
@@ -81,7 +63,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bj186.pojo.Access">
+
+  <update id="updateAccess" parameterType="com.bj186.pojo.Access">
     update access
     <set>
       <if test="accessCarcard != null">
@@ -105,14 +88,34 @@
     </set>
     where Access_id = #{accessId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.Access">
-    update access
-    set Access_carcard = #{accessCarcard,jdbcType=VARCHAR},
+
+  <select id="selectAccess" parameterType="com.bj186.pojo.Access" resultType="com.bj186.pojo.Access">
+    select * from access
+    where
+    <if test="accessCarcard != null">
+      Access_carcard = #{accessCarcard,jdbcType=VARCHAR},
+    </if>
+    <if test="accessStartdate != null">
       Access_startdate = #{accessStartdate,jdbcType=TIMESTAMP},
+    </if>
+    <if test="accessEnddate != null">
       Access_enddate = #{accessEnddate,jdbcType=TIMESTAMP},
+    </if>
+    <if test="accessCost != null">
       Access_cost = #{accessCost,jdbcType=DECIMAL},
+    </if>
+    <if test="accessOther1 != null">
       Access_other1 = #{accessOther1,jdbcType=VARCHAR},
-      Access_other2 = #{accessOther2,jdbcType=VARCHAR}
-    where Access_id = #{accessId,jdbcType=INTEGER}
-  </update>
+    </if>
+    <if test="accessOther2 != null">
+      Access_other2 = #{accessOther2,jdbcType=VARCHAR},
+    </if>
+  </select>
+
+  <select id="selectAccessList" parameterType="com.bj186.pojo.Access" resultType="com.bj186.pojo.Access">
+    select * from access
+    where
+    Access_id = #{accessId,jdbcType=INTEGER}
+  </select>
+
 </mapper>
