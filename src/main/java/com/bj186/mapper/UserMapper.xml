@@ -5,33 +5,14 @@
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
-    <result column="user_phonenuber" jdbcType="VARCHAR" property="userPhonenuber" />
+    <result column="user_phonenumber" jdbcType="VARCHAR" property="userPhonenumber" />
     <result column="user_dress" jdbcType="VARCHAR" property="userDress" />
     <result column="user_sise" jdbcType="VARCHAR" property="userSise" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="user_auth" jdbcType="INTEGER" property="auth" />
   </resultMap>
-  <sql id="Base_Column_List">
-    user_id, user_name, user_password, user_phonenuber, user_dress, user_sise, user_type
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from user
-    where user_id = #{userId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where user_id = #{userId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.bj186.pojo.User">
-    insert into user (user_id, user_name, user_password,
-      user_phonenuber, user_dress, user_sise,
-      user_type)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userPassword,jdbcType=VARCHAR},
-      #{userPhonenuber,jdbcType=VARCHAR}, #{userDress,jdbcType=VARCHAR}, #{userSise,jdbcType=VARCHAR},
-      #{userType,jdbcType=INTEGER})
-  </insert>
+
+
   <insert id="insertSelective" parameterType="com.bj186.pojo.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -44,7 +25,7 @@
       <if test="userPassword != null">
         user_password,
       </if>
-      <if test="userPhonenuber != null">
+      <if test="userPhonenumber != null">
         user_phonenuber,
       </if>
       <if test="userDress != null">
@@ -67,7 +48,7 @@
       <if test="userPassword != null">
         #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="userPhonenuber != null">
+      <if test="userPhonenumber != null">
         #{userPhonenuber,jdbcType=VARCHAR},
       </if>
       <if test="userDress != null">
@@ -115,15 +96,30 @@
       user_type = #{userType,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <select id="selectUser" resultMap="BaseResultMap">
-    select * from user;
-  </select>
-  <select id="getUser" resultMap="BaseResultMap" parameterType="String">
-    select * from user where user_name = #{username}
-  </select>
-  <select id="getall11" resultMap="BaseResultMap" parameterType="String">
-    select * from user where user_name = #{username}
+<select id="loginUser" parameterType="com.bj186.pojo.User" resultType="com.bj186.pojo.User">
+  select * from user
+  where
+  <if test="userName != null">
+    user_name = #{userName,jdbcType=VARCHAR},
+  </if>
+  <if test="userPassword != null">
+    user_password = #{userPassword,jdbcType=VARCHAR},
+  </if>
+  <if test="userPhonenuber != null">
+    user_phonenuber = #{userPhonenuber,jdbcType=VARCHAR},
+  </if>
+  <if test="userId != null">
+    user_id = #{userId,jdbcType=INTEGER}
+  </if>
 </select>
+<insert id="regUser" parameterType="java.lang.String">
+  insert into user(user_name, user_password) values(#{arg0},#{arg1});
+</insert>
 
+  <select id="getUser" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user
+    where
+    user_name = #{username,jdbcType=INTEGER}
+  </select>
 
 </mapper>

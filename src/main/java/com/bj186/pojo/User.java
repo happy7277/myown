@@ -7,7 +7,7 @@ public class User {
 
     private String userPassword;
 
-    private String userPhonenuber;
+    private String userPhonenumber;
 
     private String userDress;
 
@@ -23,7 +23,7 @@ public class User {
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userPassword='" + userPassword + '\'' +
-                ", userPhonenuber='" + userPhonenuber + '\'' +
+                ", userPhonenuber='" + userPhonenumber + '\'' +
                 ", userDress='" + userDress + '\'' +
                 ", userSise='" + userSise + '\'' +
                 ", userType=" + userType +
@@ -64,11 +64,11 @@ public class User {
     }
 
     public String getUserPhonenuber() {
-        return userPhonenuber;
+        return userPhonenumber;
     }
 
     public void setUserPhonenuber(String userPhonenuber) {
-        this.userPhonenuber = userPhonenuber == null ? null : userPhonenuber.trim();
+        this.userPhonenumber = userPhonenuber == null ? null : userPhonenuber.trim();
     }
 
     public String getUserDress() {

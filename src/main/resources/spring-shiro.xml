@@ -84,18 +84,23 @@
                 /css/** = anon
                 /img/** = anon
                 <!--加载不需要认证的页面-->
-                /login.html = anon
+                /loginadmin.html = anon
+                /loginuser.html = anon
+                /admin/reg = anon
+                /user/reg = anon
                 /user/login = anon
+                /admin/login = anon
                 /html/user/reg.html = anon
                 /user/reg = anon
                 /index.html = anon
                 /logout = logout
                 <!--权限控制-->
 
-                /admin.html = roles[superadmin]
+                /superadmin.html = roles[superadmin]
+                /admin.html = roles[admin]
                 /items/** = roles[admin]
                 /user.html = roles[user]
-                /list.html = roles[all]
+                /all.html = roles[all]
                 /call/**= anon
 
 

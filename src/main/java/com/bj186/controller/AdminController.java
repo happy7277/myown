@@ -1,6 +1,8 @@
 package com.bj186.controller;
 
 
+import com.bj186.pojo.Admin;
+import com.bj186.service.AdminService;
 import com.bj186.service.UserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -11,31 +13,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-@Controller
-@RequestMapping("/user")
-public class UserController {
 
-    private final UserService userService;
+@Controller
+public class AdminController {
+
+    private final AdminService adminService;
 
     @Autowired
-    public UserController(UserService userService) {
-        System.out.println("--------------------------UserController构造函数");
-        this.userService = userService;
+    public AdminController(AdminService adminService) {
+        System.out.println("--------------------------AdminController构造函数");
+        this.adminService = adminService;
+
     }
 
-    @RequestMapping(value = "/login")
-    public String loginUser(@RequestParam String username, @RequestParam String password) {
-        System.out.println("UserController --------------------------selectUser");
-        System.out.println("UserController ------username=" + username);
-        System.out.println("UserController ------password=" + password);
+    @RequestMapping(value = "/admin/login")
+    public String loginAdmin(@RequestParam String username, @RequestParam String password) {
+        System.out.println("AdminController --------------------------loginAdmin");
+        System.out.println("AdminController ------username=" + username);
+        System.out.println("AdminController ------password=" + password);
 
-        Subject currentUser = SecurityUtils.getSubject(); // shiro权限认证主体对象
-        System.out.println(currentUser.isAuthenticated());
-        if (!currentUser.isAuthenticated()) {//判断是否已登陆
-            UsernamePasswordToken upToken = new UsernamePasswordToken(username, password);// shiro权限认证类型，未登录，将用户名密码封装成tonken
-            upToken.setRememberMe(true);// 用户登录时效性
+        Subject currentAdmin = SecurityUtils.getSubject();                                     // shiro权限认证主体对象
+        if (!currentAdmin.isAuthenticated()) {
+            UsernamePasswordToken upToken = new UsernamePasswordToken(username, password);    // shiro权限认证类型
+            upToken.setRememberMe(true);                                                     // 用户登录时效性
+            System.out.println();
             try {
-                currentUser.login(upToken);    // 调用realm认证用户权限
+                currentAdmin.login(upToken);    // 调用realm认证用户权限
                 return "redirect:/index.html";
             } catch (IncorrectCredentialsException ice) {
                 System.out.println("用户名/密码不匹配！");
@@ -47,16 +50,20 @@ public class UserController {
                 System.out.println(ae.getMessage());
             }
         }
-        return "redirect:/login.html";
+        return "redirect:/loginadmin.html";
     }
 
 
-    @RequestMapping(value = "/reg")
-    public String regUser(@RequestParam String username, @RequestParam String password) {
+    @RequestMapping(value = "/admin/reg")
+    public String regAdmin(@RequestParam String username, @RequestParam String password) {
         System.out.println("username=" + username);
         System.out.println("password=" + password);
-        userService.regUser(username, md5(username, password));
-        return "redirect:/login.html";
+        Admin admin = null;
+        admin.setAdminName(username);
+        admin.setAdminPassword(md5(username,password));
+        System.out.println(admin);
+        adminService.regAdmin(admin);
+        return "redirect:/loginadmin.html";
     }
 
     // 注册时，进行shiro加密，返回加密后的结果，如果在加入shiro之前，存在用户密码不是此方式加密的，那么将无法登录

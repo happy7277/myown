@@ -32,5 +32,11 @@ public class UserServiceImpl implements UserService {
     public void regUser(String username, String password) {
         userMapper.regUser(username, password);
     }
+
+    @Override
+    public User loginUser(User user) {
+        User loginUser = this.userMapper.loginUser(user);
+        return loginUser;
+    }
 }
 

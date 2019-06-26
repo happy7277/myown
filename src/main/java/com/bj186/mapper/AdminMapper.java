@@ -7,11 +7,17 @@ public interface AdminMapper {
 
     int insert(Admin record);
 
-    int insertSelective(Admin record);
+    int insertAdmin(Admin record);
 
     Admin selectByPrimaryKey(Integer adminId);
 
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    Admin loginAdmin(Admin admin);
+
+    Admin getAdmin(String username);
+
+    void regAdmin(String username,String password);
 }

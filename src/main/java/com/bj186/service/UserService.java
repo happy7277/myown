@@ -10,4 +10,7 @@ public interface UserService {
     public User getUser(String username);
 
     public void regUser(String username, String password);
+
+    User loginUser(User user);//登陆使用的方法
+
 }

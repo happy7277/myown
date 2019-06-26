@@ -22,4 +22,7 @@ public interface UserMapper {
     User getUser(String username);
 
     void regUser(String username, String password);
+
+    User loginUser(User user);//登陆使用的方法
+
 }

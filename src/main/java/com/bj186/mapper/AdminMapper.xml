@@ -12,31 +12,9 @@
     <result column="admin_date" jdbcType="VARCHAR" property="adminDate" />
     <result column="admin_status" jdbcType="INTEGER" property="adminStatus" />
   </resultMap>
-  <sql id="Base_Column_List">
-    admin_id, admin_name, admin_password, admin_phonenumber, admin_post, admin_power, 
-    admin_salary, admin_date, admin_status
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from admin
-    where admin_id = #{adminId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from admin
-    where admin_id = #{adminId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.bj186.pojo.Admin">
-    insert into admin (admin_id, admin_name, admin_password, 
-      admin_phonenumber, admin_post, admin_power, 
-      admin_salary, admin_date, admin_status
-      )
-    values (#{adminId,jdbcType=INTEGER}, #{adminName,jdbcType=VARCHAR}, #{adminPassword,jdbcType=VARCHAR}, 
-      #{adminPhonenumber,jdbcType=INTEGER}, #{adminPost,jdbcType=VARCHAR}, #{adminPower,jdbcType=VARCHAR}, 
-      #{adminSalary,jdbcType=VARCHAR}, #{adminDate,jdbcType=VARCHAR}, #{adminStatus,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.bj186.pojo.Admin">
+
+
+  <insert id="insertAdmin" parameterType="com.bj186.pojo.Admin">
     insert into admin
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="adminId != null">
@@ -139,4 +117,25 @@
       admin_status = #{adminStatus,jdbcType=INTEGER}
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
+
+  <select id="loginAdmin" parameterType="com.bj186.pojo.Admin" resultType="com.bj186.pojo.Admin">
+    select * from admin
+    where
+    <if test="adminName != null">
+      admin_name = #{adminName,jdbcType=VARCHAR},
+    </if>
+    <if test="adminPassword != null">
+      admin_password = #{adminPassword,jdbcType=VARCHAR},
+    </if>
+    <if test="adminPhonenumber != null">
+      admin_phonenumber = #{adminPhonenumber,jdbcType=INTEGER},
+    </if>
+  </select>
+
+  <select id="getAdmin" parameterType="java.lang.String" resultType="com.bj186.pojo.Admin">
+    select * from Admin
+    where
+    admin_name = #{username}
+  </select>
+
 </mapper>
