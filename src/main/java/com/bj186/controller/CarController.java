@@ -18,25 +18,21 @@ public class CarController {
         this.carService = carService;
     }
 
-    public List<Car> selectCarList(){
-        List<Car> cars = carService.selectCarList();
+    public List<Car> selectCar(Car car){
+        List<Car> cars = carService.selectCar(car);
         return cars;
     }
 
-    public List<Car> selectCarByUid(Integer uid){
-        List<Car> cars = carService.selectCarByUid(uid);
-        return cars;
-    }
-    public List<Car> selectCarByPid(Integer pid){
-        List<Car> cars = carService.selectCarByPid(pid);
+    public List<Car> selectCarList(Car car){
+        List<Car> cars = carService.selectCarList(car);
         return cars;
     }
 
     public int insert(Car car){
-        return carService.insert(car);
+        return carService.insertCar(car);
     }
 
-    int updateCar(Car car){
+    public int updateCar(Car car){
          return carService.updateCar(car);
     }
 

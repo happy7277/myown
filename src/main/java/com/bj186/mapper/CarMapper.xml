@@ -117,21 +117,34 @@
     select * from car
     <where>
 
-      <if test="car_uid != null">
-        and car_uid = #{car_uid}
+      <if test="carUid != null">
+        and car_uid = #{carUid}
       </if>
-      <if test="car_pid != null">
-        and car_pid = #{car_pid}
+      <if test="carPid != null">
+        and car_pid = #{carPid}
       </if>
-      <if test="car_card != null">
-        and car_card= #{car_card}
+      <if test="carCard != null">
+        and car_card= #{carCard}
       </if>
-      <if test="car_id != null">
-        and car_id= #{car_id}
+      <if test="carId != null">
+        and car_id= #{carId}
       </if>
     </where>
   </select>
-
+  <select id="selectCarList" parameterType="com.bj186.pojo.Car" resultType="com.bj186.pojo.Car">
+    select * from car
+    <where>
+      <if test="carUid != null">
+        and car_uid = #{carUid}
+      </if>
+      <if test="carPid != null">
+        and car_pid = #{carPid}
+      </if>
+      <if test="carCard != null">
+        and car_card= #{carCard}
+      </if>
+    </where>
+  </select>
 
 
 </mapper>

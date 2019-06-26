@@ -22,12 +22,9 @@ public class test {
     @Test
     public void tescar(){
         CarController carController = context.getBean(CarController.class);
-        List<Car> cars = carController.selectCarList();
-        List<Car> cars1 = carController.selectCarByPid(null);
         Car car = new Car();
-        car.setCarCard("川A11111");
-        int insert = carController.insert(car);
-        System.out.println(insert);
+        List<Car> cars = carController.selectCar(car);
+        System.out.println(cars);
 
     }
 

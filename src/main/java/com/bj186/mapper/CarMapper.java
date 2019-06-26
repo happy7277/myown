@@ -12,6 +12,8 @@ public interface CarMapper {
 
     List<Car> selectCar(Car car);  //查找车辆信息,返回的事一个列表
 
+    List<Car> selectCarList(Car car);  //查找车辆信息(可通过车辆id查询),返回的事一个列表
+
 
 
 

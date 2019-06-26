@@ -17,34 +17,24 @@ public class CarServiceImpl implements CarService {
         this.carMapper = carMapper;
     }
 
-    @Override
-    public Car selectCarBycarcard(String carcard) {
-        return this.carMapper.selectCarBycarcard(carcard);
-    }
 
     @Override
-    public List<Car> selectCarByUid(Integer uid) {
-        return this.carMapper.selectCarByUid(uid);
-    }
-
-    @Override
-    public List<Car> selectCarByPid(Integer pid) {
-        return this.carMapper.selectCarByPid(pid);
-    }
-
-    @Override
-    public List<Car> selectCarList() {
-        return this.carMapper.selectCarList();
-    }
-
-    @Override
-    public int insert(Car car) {
-
-        return this.carMapper.insert(car);
+    public int insertCar(Car car) {
+        return this.carMapper.insertCar(car);
     }
 
     @Override
     public int updateCar(Car car) {
         return this.carMapper.updateCar(car);
+    }
+
+    @Override
+    public List<Car> selectCar(Car car) {
+        return this.carMapper.selectCar(car);
+    }
+
+    @Override
+    public List<Car> selectCarList(Car car) {
+        return this.carMapper.selectCarList(car);
     }
 }
