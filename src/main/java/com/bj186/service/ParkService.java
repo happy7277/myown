@@ -1,10 +1,10 @@
-package com.bj186.mapper;
+package com.bj186.service;
 
 import com.bj186.pojo.Park;
 
 import java.util.List;
 
-public interface ParkMapper {
+public interface ParkService {
 
     int insertPark(Park park);
 
@@ -13,5 +13,4 @@ public interface ParkMapper {
     List<Park> selectPark(Park park);
 
     List<Park> selectParkList(Park park);
-
 }

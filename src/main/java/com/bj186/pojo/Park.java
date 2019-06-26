@@ -1,5 +1,7 @@
 package com.bj186.pojo;
 
+import java.util.Date;
+
 public class Park {
     private Integer parkId;
 
@@ -9,7 +11,15 @@ public class Park {
 
     private String parkPrice;
 
-    private String parkSaledate;
+    private Date parkSaledate;
+
+    public Date getParkSaledate() {
+        return parkSaledate;
+    }
+
+    public void setParkSaledate(Date parkSaledate) {
+        this.parkSaledate = parkSaledate;
+    }
 
     public Integer getParkId() {
         return parkId;
@@ -43,11 +53,5 @@ public class Park {
         this.parkPrice = parkPrice == null ? null : parkPrice.trim();
     }
 
-    public String getParkSaledate() {
-        return parkSaledate;
-    }
 
-    public void setParkSaledate(String parkSaledate) {
-        this.parkSaledate = parkSaledate == null ? null : parkSaledate.trim();
-    }
 }
