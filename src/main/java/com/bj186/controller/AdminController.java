@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
     private final AdminService adminService;
@@ -26,7 +27,7 @@ public class AdminController {
 
     }
 
-    @RequestMapping(value = "/admin/login")
+    @RequestMapping(value = "/login")
     public String loginAdmin(@RequestParam String username, @RequestParam String password) {
         System.out.println("AdminController --------------------------loginAdmin");
         System.out.println("AdminController ------username=" + username);
@@ -54,12 +55,14 @@ public class AdminController {
     }
 
 
-    @RequestMapping(value = "/admin/reg")
+    @RequestMapping(value = "/reg")
     public String regAdmin(@RequestParam String username, @RequestParam String password) {
         System.out.println("username=" + username);
         System.out.println("password=" + password);
         Admin admin = null;
         admin.setAdminName(username);
+        String pwd = md5(username, password).toString();
+        System.out.println("加盐加密pwd=="+pwd);
         admin.setAdminPassword(md5(username,password));
         System.out.println(admin);
         adminService.regAdmin(admin);

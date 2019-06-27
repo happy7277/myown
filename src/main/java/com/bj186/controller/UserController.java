@@ -74,7 +74,7 @@ public class UserController {
         return map;
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/findpwd")
     @ResponseBody
     public Map findpwd(@RequestParam String phonenumber1, @RequestParam String phonenumber2) {
         Map map = new HashMap<>();
