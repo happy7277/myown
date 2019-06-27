@@ -13,4 +13,7 @@ public interface UserService {
 
     User loginUser(User user);//登陆使用的方法
 
+    int updateByPhone(User record);
+
+
 }

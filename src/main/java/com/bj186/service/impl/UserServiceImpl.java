@@ -38,5 +38,10 @@ public class UserServiceImpl implements UserService {
         User loginUser = this.userMapper.loginUser(user);
         return loginUser;
     }
+
+    @Override
+    public int updateByPhone(User record) {
+        return this.userMapper.updateByPhone(record);
+    }
 }
 

@@ -17,6 +17,8 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
+    int updateByPhone(User record);
+
     List<User> selectUser();
 
     User getUser(String username);
@@ -24,5 +26,7 @@ public interface UserMapper {
     void regUser(String username, String password);
 
     User loginUser(User user);//登陆使用的方法
+
+    void setUserPassword(String phonenumber1,String phonenumber2);
 
 }

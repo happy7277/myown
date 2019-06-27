@@ -42,9 +42,8 @@
                 form.on('submit(findpwd)', function(data){
                     console.log(data.field);
                     var userInfo = data.field;
-                    var url = "http://mockjs";
                     $.ajax({
-                        url:url,
+                        url:"",
                         type:'post',
                         data:userInfo,
                         dataType:"json",

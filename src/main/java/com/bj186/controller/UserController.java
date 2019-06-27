@@ -44,29 +44,29 @@ public class UserController {
             upToken.setRememberMe(true);// 用户登录时效性
             try {
                 currentUser.login(upToken);    // 调用realm认证用户权限
-                map.put("returncode",1);
-                map.put("msg","登陆成功");
+                map.put("returncode", 1);
+                map.put("msg", "登陆成功");
                 List list = new ArrayList();
-                map.put("data",list);
+                map.put("data", list);
                 return map;
             } catch (IncorrectCredentialsException ice) {
-                map.put("msg","用户名/密码不匹配！");
-                map.put("returncode",-1);
+                map.put("msg", "用户名/密码不匹配！");
+                map.put("returncode", -1);
                 System.out.println("用户名/密码不匹配！");
                 return map;
             } catch (LockedAccountException lae) {
-                map.put("msg","账户已被冻结！");
-                map.put("returncode",-1);
+                map.put("msg", "账户已被冻结！");
+                map.put("returncode", -1);
                 System.out.println("账户已被冻结！");
                 return map;
             } catch (UnknownAccountException uae) {
-                map.put("msg","账户不存在");
-                map.put("returncode",-1);
+                map.put("msg", "账户不存在");
+                map.put("returncode", -1);
                 System.out.println("账户不存在");
                 return map;
             } catch (AuthenticationException ae) {
-                map.put("msg","未知异常");
-                map.put("returncode",-1);
+                map.put("msg", "未知异常");
+                map.put("returncode", -1);
                 System.out.println(ae.getMessage());
                 return map;
             }
@@ -74,6 +74,17 @@ public class UserController {
         return map;
     }
 
+    @RequestMapping(value = "/login")
+    @ResponseBody
+    public Map findpwd(@RequestParam String phonenumber1, @RequestParam String phonenumber2) {
+        Map map = new HashMap<>();
+        System.out.println("拿到的电话1"+phonenumber1+"电话2"+phonenumber2);
+if (phonenumber1.equals(phonenumber2)){
+
+
+}
+return null;
+    }
 
     @RequestMapping(value = "/reg")
     public String regUser(@RequestParam String username, @RequestParam String password) {
@@ -85,7 +96,7 @@ public class UserController {
 
     // 注册时，进行shiro加密，返回加密后的结果，如果在加入shiro之前，存在用户密码不是此方式加密的，那么将无法登录
     // 使用用户名作为盐值
-    private String md5(String username, String password){
+    private String md5(String username, String password) {
         String hashAlgorithmName = "MD5";                   // 加密方式
         ByteSource salt = ByteSource.Util.bytes(username);  // 以账号作为盐值
         int hashIterations = 11;                            // 加密11次

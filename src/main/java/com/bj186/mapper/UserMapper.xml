@@ -90,11 +90,20 @@
     update user
     set user_name = #{userName,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
-      user_phonenuber = #{userPhonenuber,jdbcType=VARCHAR},
+      user_phonenumber = #{userPhonenumber,jdbcType=VARCHAR},
       user_dress = #{userDress,jdbcType=VARCHAR},
       user_sise = #{userSise,jdbcType=VARCHAR},
       user_type = #{userType,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPhone" parameterType="com.bj186.pojo.User">
+    update user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_dress = #{userDress,jdbcType=VARCHAR},
+      user_sise = #{userSise,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER}
+    where user_phonenumber = #{userPhonenumber,jdbcType=INTEGER}
   </update>
 <select id="loginUser" parameterType="com.bj186.pojo.User" resultType="com.bj186.pojo.User">
   select * from user
