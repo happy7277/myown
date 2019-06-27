@@ -68,9 +68,9 @@
     -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
-        <property name="loginUrl" value="/html/login.html" />
-        <property name="successUrl" value="/html/index.html" />
-        <property name="unauthorizedUrl" value="/html/error.html" />
+        <property name="loginUrl" value="/login.html" />
+        <property name="successUrl" value="/index.html" />
+        <property name="unauthorizedUrl" value="/error.html" />
         <!--
             配置需要受保护的页面
             以及访问这些页面需要的权限
@@ -82,10 +82,14 @@
                 <!--加载静态资源-->
                 /js/** = anon
                 /css/** = anon
-                /img/** = anon
+                /imgages/** = anon
+                /fonts/** = anon
+                /lib/** = anon
                 <!--加载不需要认证的页面-->
                 /loginadmin.html = anon
-                /loginuser.html = anon
+                /login.html = anon
+                /findpwd.html = anon
+                /error.html = anon
                 /admin/reg = anon
                 /user/reg = anon
                 /user/login = anon

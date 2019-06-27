@@ -11,6 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -24,11 +31,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/login")
-    public String loginUser(@RequestParam String username, @RequestParam String password) {
+    @ResponseBody
+    public Map loginUser(@RequestParam String username, @RequestParam String password) {
         System.out.println("UserController --------------------------selectUser");
         System.out.println("UserController ------username=" + username);
         System.out.println("UserController ------password=" + password);
-
+        Map map = new HashMap<>();
         Subject currentUser = SecurityUtils.getSubject(); // shiro权限认证主体对象
         System.out.println(currentUser.isAuthenticated());
         if (!currentUser.isAuthenticated()) {//判断是否已登陆
@@ -36,18 +44,34 @@ public class UserController {
             upToken.setRememberMe(true);// 用户登录时效性
             try {
                 currentUser.login(upToken);    // 调用realm认证用户权限
-                return "redirect:/index.html";
+                map.put("returncode",1);
+                map.put("msg","登陆成功");
+                List list = new ArrayList();
+                map.put("data",list);
+                return map;
             } catch (IncorrectCredentialsException ice) {
+                map.put("msg","用户名/密码不匹配！");
+                map.put("returncode",-1);
                 System.out.println("用户名/密码不匹配！");
+                return map;
             } catch (LockedAccountException lae) {
+                map.put("msg","账户已被冻结！");
+                map.put("returncode",-1);
                 System.out.println("账户已被冻结！");
+                return map;
             } catch (UnknownAccountException uae) {
+                map.put("msg","账户不存在");
+                map.put("returncode",-1);
                 System.out.println("账户不存在");
+                return map;
             } catch (AuthenticationException ae) {
+                map.put("msg","未知异常");
+                map.put("returncode",-1);
                 System.out.println(ae.getMessage());
+                return map;
             }
         }
-        return "redirect:/login.html";
+        return map;
     }
 
 

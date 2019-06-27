@@ -17,8 +17,6 @@
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
       <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
-      <script src="./js/mock-min.js"></script>
-      <script src="./js/server.js"></script>
     <![endif]-->
 </head>
 <body class="login-bg">
@@ -28,7 +26,7 @@
         <div id="darkbannerwrap"></div>
         
         <form method="post" class="layui-form" >
-            <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+            <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" id="username" >
             <hr class="hr15">
             <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
@@ -51,25 +49,27 @@
                   console.log(data);
                   console.log(data.field);
                   $.ajax({
-                      url:"login.do", //处理页面的路径
+                      url:"/user/login", //处理页面的路径
                       data:data.field, //要提交的数据是一个JSON
                       type:"post", //提交方式
-                      dataType:"JSON", //返回数据的类型
+                      // contentType:"Application/json",
+                       dataType:"json", //返回数据的类型
                       //TEXT字符串 JSON返回JSON XML返回XML
                       success:function(rep){ //回调函数 ,成功时返回的数据存在形参data里
                           console.log(rep)
                           if(rep.returncode == 1) {
                               //trim()方法会去掉页面中的冗余空格
-                              layer.msg(req.msg, {
+                              layer.msg(rep.msg, {
                                   icon: 6,//成功的表情
                                   time: 3000//1秒关闭（如果不配置，默认是3秒）
                               }, function(){
-                                  //  window.location.href = "/order-view.html";
+                                   window.location.href = "/index.html";
                               });
 
                           }
                           else if (rep.returncode == -1) {
-                              layer.msg("登陆失败！账号不存在或者密码错误");
+                              layer.msg(rep.msg);
+                              window.location.href = "/login.html";
                           }
                       },
                       error:function (e) {
