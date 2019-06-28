@@ -2,6 +2,7 @@ package com.bj186.controller;
 
 
 import com.bj186.service.UserService;
+import com.bj186.shiro.UsernamePasswordByUserTypeToken;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -40,10 +41,11 @@ public class UserController {
         Subject currentUser = SecurityUtils.getSubject(); // shiro权限认证主体对象
         System.out.println(currentUser.isAuthenticated());
         if (!currentUser.isAuthenticated()) {//判断是否已登陆
-            UsernamePasswordToken upToken = new UsernamePasswordToken(username, password);// shiro权限认证类型，未登录，将用户名密码封装成tonken
-            upToken.setRememberMe(true);// 用户登录时效性
+            UsernamePasswordToken upTypeToken = new UsernamePasswordByUserTypeToken(username, password, "2");
+//            UsernamePasswordToken upToken = new UsernamePasswordToken(username, password);// shiro权限认证类型，未登录，将用户名密码封装成tonken
+            upTypeToken.setRememberMe(true);// 用户登录时效性
             try {
-                currentUser.login(upToken);    // 调用realm认证用户权限
+                currentUser.login(upTypeToken);    // 调用realm认证用户权限
                 map.put("returncode", 1);
                 map.put("msg", "登陆成功");
                 List list = new ArrayList();

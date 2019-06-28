@@ -18,7 +18,7 @@
     </bean>
 
     <!-- 配置ModularRealmAuthenticator，可实现多Realm认证 -->
-    <bean id="authenticator" class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">
+    <bean id="authenticator" class="com.bj186.shiro.PointRealmAuthenticator">
         <!-- 配置Realm认证策略 -->
         <property name="authenticationStrategy">
             <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
@@ -38,6 +38,18 @@
         </property>
     </bean>
 
+    <bean id="adminRealm" class="com.bj186.shiro.AdminRealm">
+        <!-- 配置密码匹配器 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- 加密算法为MD5 -->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!-- 加密次数 -->
+                <property name="hashIterations" value="11"/>
+            </bean>
+        </property>
+    </bean>
+
     <!-- 配置权限管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- 加载上面配置好的认证策略-->
@@ -46,6 +58,7 @@
         <property name="realms">
             <list>
                 <ref bean="userRealm" />
+                <ref bean="adminRealm" />
             </list>
         </property>
         <property name="rememberMeManager" ref="rememberMeManager" />
