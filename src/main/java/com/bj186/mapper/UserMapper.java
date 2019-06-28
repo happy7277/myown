@@ -17,7 +17,9 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
 
-    int updateByPhone(User record);
+    int updateByPhone(User record);//通过电话重置密码
+
+    User getUserByphone(String phonenumber);//通过电话查找用户
 
     List<User> selectUser();
 
@@ -27,6 +29,5 @@ public interface UserMapper {
 
     User loginUser(User user);//登陆使用的方法
 
-    void setUserPassword(String phonenumber1,String phonenumber2);
 
 }

@@ -40,8 +40,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByphone(String phonenumber) {
+        return this.userMapper.getUserByphone(phonenumber);
+    }
+
+    @Override
     public int updateByPhone(User record) {
         return this.userMapper.updateByPhone(record);
+    }
+
+    @Override
+    public int updateByPrimaryKey(User record) {
+        return this.userMapper.updateByPrimaryKey(record);
     }
 }
 

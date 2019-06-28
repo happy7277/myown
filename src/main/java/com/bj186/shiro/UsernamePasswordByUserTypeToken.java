@@ -1,5 +1,6 @@
 package com.bj186.shiro;
 
+
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 /**

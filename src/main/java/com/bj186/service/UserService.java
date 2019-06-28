@@ -13,7 +13,11 @@ public interface UserService {
 
     User loginUser(User user);//登陆使用的方法
 
-    int updateByPhone(User record);
+    User getUserByphone(String phonenumber);//通过电话查找用户
+
+    int updateByPhone(User record);//通过电话重置密码
+
+    int updateByPrimaryKey(User record);
 
 
 }

@@ -51,17 +51,17 @@ public class AdminRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         Object principal = principalCollection.getPrimaryPrincipal();            //获取登录的用户pojo对象
         Admin admin = (Admin)principal;
-        String adminPower = admin.getAdminPower();
+        Integer adminPower = admin.getAdminPower();
         System.out.println("AuthorizationInfo principal=" + principal);
     /*
        根据不同的权限判断可访问的资源
        info.addRole("1")中的形参值，在spring_database.xml中shiroFilter进行配置
     */
-        if("0".equals(adminPower)){//超级管理员权限分配
+        if(adminPower == 0){//超级管理员权限分配
             info.addRole("superadmin");
             info.addRole("admin");
         }
-        if("1".equals(adminPower)){//客服权限分配
+        if(adminPower == 1){//客服权限分配
             info.addRole("admin");
         }
         info.addRole("all");

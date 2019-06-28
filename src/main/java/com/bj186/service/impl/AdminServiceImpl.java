@@ -30,4 +30,6 @@ public class AdminServiceImpl implements AdminService {
     public Admin getAdmin(String username) {
         return this.adminMapper.getAdmin(username);
     }
+
+
 }

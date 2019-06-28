@@ -1,11 +1,15 @@
 package com.bj186.controller;
 
 
+import com.bj186.pojo.Admin;
+import com.bj186.pojo.User;
+import com.bj186.service.AdminService;
 import com.bj186.service.UserService;
 import com.bj186.shiro.UsernamePasswordByUserTypeToken;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,32 +30,37 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final AdminService adminService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AdminService adminService) {
         System.out.println("--------------------------UserController构造函数");
         this.userService = userService;
+        this.adminService = adminService;
     }
 
     @RequestMapping(value = "/login")
     @ResponseBody
-    public Map loginUser(@RequestParam String username, @RequestParam String password) {
-        System.out.println("UserController --------------------------selectUser");
+    public Map loginUser(@RequestParam String username, @RequestParam String password, @RequestParam String type) {
         System.out.println("UserController ------username=" + username);
         System.out.println("UserController ------password=" + password);
         Map map = new HashMap<>();
         Subject currentUser = SecurityUtils.getSubject(); // shiro权限认证主体对象
         System.out.println(currentUser.isAuthenticated());
         if (!currentUser.isAuthenticated()) {//判断是否已登陆
-            UsernamePasswordToken upTypeToken = new UsernamePasswordByUserTypeToken(username, password, "2");
-//            UsernamePasswordToken upToken = new UsernamePasswordToken(username, password);// shiro权限认证类型，未登录，将用户名密码封装成tonken
+            UsernamePasswordToken upTypeToken = new UsernamePasswordByUserTypeToken(username, password, type);
+//          UsernamePasswordToken upToken = new UsernamePasswordToken(username, password);// shiro权限认证类型，未登录，将用户名密码封装成tonken
             upTypeToken.setRememberMe(true);// 用户登录时效性
             try {
                 currentUser.login(upTypeToken);    // 调用realm认证用户权限
                 map.put("returncode", 1);
                 map.put("msg", "登陆成功");
+                Object principal = currentUser.getPrincipal();
+                Session session = currentUser.getSession();
+                session.setAttribute("loginman", principal);
+                System.out.println("拿到的对象" + principal);
                 List list = new ArrayList();
-                map.put("data", list);
+                map.put("data", principal);
                 return map;
             } catch (IncorrectCredentialsException ice) {
                 map.put("msg", "用户名/密码不匹配！");
@@ -80,12 +91,36 @@ public class UserController {
     @ResponseBody
     public Map findpwd(@RequestParam String phonenumber1, @RequestParam String phonenumber2) {
         Map map = new HashMap<>();
-        System.out.println("拿到的电话1"+phonenumber1+"电话2"+phonenumber2);
-if (phonenumber1.equals(phonenumber2)){
+        System.out.println("拿到的电话1" + phonenumber1 + "电话2" + phonenumber2);
+        if (phonenumber1.equals(phonenumber2)) {
+            User userByphone = userService.getUserByphone(phonenumber1);
+            System.out.println("返回的对象=="+userByphone);
+            if (userByphone != null){
+                userByphone.setUserPassword(md5(userByphone.getUserName(),phonenumber1));
+                int i = userService.updateByPrimaryKey(userByphone);
+                System.out.println("更新密码后的返回值："+i);
+                map.put("msg","密码已成功重置为手机号码！");
+                map.put("returncode", 1);
+            }else {
+                Admin admin = new Admin();
+                admin.setAdminPhoneNumber(phonenumber1);
+                System.out.println("注入的admin对象"+admin);
+                admin = adminService.loginAdmin(admin);
+                System.out.println("调用loginAdmin后拿到的对象："+admin);
+                if (admin != null ){
+                    admin.setAdminPassword(md5(admin.getAdminName(),phonenumber1));
+                    System.out.println("更新密码后的返回对象："+admin);
+                    map.put("msg","密码已成功重置为手机号码！");
+                    map.put("returncode", 1);
+                }else {
+                    System.out.println("未找到该手机号对应的用户");
+                    map.put("msg","找回失败，确认手机号码");
+                    map.put("returncode", -1);
+                }
 
-
-}
-return null;
+            }
+        }
+        return map;
     }
 
     @RequestMapping(value = "/reg")

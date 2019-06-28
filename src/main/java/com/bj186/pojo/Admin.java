@@ -9,15 +9,15 @@ public class Admin {
 
     private String adminPassword;
 
-    private Integer adminPhonenumber;
+    private String adminPhoneNumber;
 
     private String adminPost;
 
-    private String adminPower;
+    private Integer adminPower;
 
     private String adminSalary;
 
-    private Date adminDate;
+    private String adminDate;
 
     private Integer adminStatus;
 
@@ -45,12 +45,12 @@ public class Admin {
         this.adminPassword = adminPassword == null ? null : adminPassword.trim();
     }
 
-    public Integer getAdminPhonenumber() {
-        return adminPhonenumber;
+    public String getAdminPhonenumber() {
+        return adminPhoneNumber;
     }
 
-    public void setAdminPhonenumber(Integer adminPhonenumber) {
-        this.adminPhonenumber = adminPhonenumber;
+    public void setAdminPhoneNumber(String adminPhoneNumber) {
+        this.adminPhoneNumber = adminPhoneNumber;
     }
 
     public String getAdminPost() {
@@ -61,12 +61,12 @@ public class Admin {
         this.adminPost = adminPost == null ? null : adminPost.trim();
     }
 
-    public String getAdminPower() {
+    public Integer getAdminPower() {
         return adminPower;
     }
 
-    public void setAdminPower(String adminPower) {
-        this.adminPower = adminPower == null ? null : adminPower.trim();
+    public void setAdminPower(Integer adminPower) {
+        this.adminPower = adminPower;
     }
 
     public String getAdminSalary() {
@@ -77,11 +77,11 @@ public class Admin {
         this.adminSalary = adminSalary == null ? null : adminSalary.trim();
     }
 
-    public Date getAdminDate() {
+    public String getAdminDate() {
         return adminDate;
     }
 
-    public void setAdminDate(Date adminDate) {
+    public void setAdminDate(String adminDate) {
         this.adminDate = adminDate;
     }
 
@@ -91,5 +91,20 @@ public class Admin {
 
     public void setAdminStatus(Integer adminStatus) {
         this.adminStatus = adminStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "adminId=" + adminId +
+                ", adminName='" + adminName + '\'' +
+                ", adminPassword='" + adminPassword + '\'' +
+                ", adminPhoneNumber='" + adminPhoneNumber + '\'' +
+                ", adminPost='" + adminPost + '\'' +
+                ", adminPower=" + adminPower +
+                ", adminSalary='" + adminSalary + '\'' +
+                ", adminDate='" + adminDate + '\'' +
+                ", adminStatus=" + adminStatus +
+                '}';
     }
 }

@@ -98,11 +98,8 @@
   </update>
   <update id="updateByPhone" parameterType="com.bj186.pojo.User">
     update user
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set
       user_password = #{userPassword,jdbcType=VARCHAR},
-      user_dress = #{userDress,jdbcType=VARCHAR},
-      user_sise = #{userSise,jdbcType=VARCHAR},
-      user_type = #{userType,jdbcType=INTEGER}
     where user_phonenumber = #{userPhonenumber,jdbcType=INTEGER}
   </update>
 <select id="loginUser" parameterType="com.bj186.pojo.User" resultType="com.bj186.pojo.User">
@@ -130,5 +127,9 @@
     where
     user_name = #{username,jdbcType=INTEGER}
   </select>
-
+  <select id="getUserByphone" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from user
+    where
+    user_phonenumber = #{phonenumber,jdbcType=INTEGER}
+  </select>
 </mapper>

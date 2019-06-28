@@ -59,7 +59,8 @@ public class AdminController {
     public String regAdmin(@RequestParam String username, @RequestParam String password) {
         System.out.println("username=" + username);
         System.out.println("password=" + password);
-        Admin admin = null;
+        Admin admin = new Admin();
+        System.out.println(admin);
         admin.setAdminName(username);
         String pwd = md5(username, password).toString();
         System.out.println("加盐加密pwd=="+pwd);

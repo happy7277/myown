@@ -30,6 +30,9 @@
             <hr class="hr15">
             <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
+            <input type="radio" name="type" value="1" title="管理员">
+            <input type="radio" name="type" value="2" title="业主" checked>
+            <hr class="hr15">
             <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr25">
         </form>
@@ -68,8 +71,10 @@
 
                           }
                           else if (rep.returncode == -1) {
-                              layer.msg(rep.msg);
-                              window.location.href = "/login.html";
+                              layer.msg(rep.msg,{
+                                  icon: 6,//成功的表情
+                                  time: 3000//1秒关闭（如果不配置，默认是3秒）
+                              });
                           }
                       },
                       error:function (e) {

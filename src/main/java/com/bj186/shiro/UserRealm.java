@@ -60,10 +60,6 @@ public class UserRealm extends AuthorizingRealm {
     */
         if("1".equals(auth)){
             info.addRole("superadmin");
-            info.addRole("call");
-        }
-        if("2".equals(auth)){
-            info.addRole("admin");
         }
         info.addRole("all");
 

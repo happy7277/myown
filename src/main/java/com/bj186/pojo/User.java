@@ -23,12 +23,19 @@ public class User {
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
                 ", userPassword='" + userPassword + '\'' +
-                ", userPhonenuber='" + userPhonenumber + '\'' +
+                ", userPhonenumber='" + userPhonenumber + '\'' +
                 ", userDress='" + userDress + '\'' +
                 ", userSise='" + userSise + '\'' +
                 ", userType=" + userType +
                 ", auth='" + auth + '\'' +
                 '}';
+    }
+
+    public User(String userPhonenumber) {
+        this.userPhonenumber = userPhonenumber;
+    }
+
+    public User() {
     }
 
     public String getAuth() {

@@ -20,11 +20,13 @@
     <!-- 配置ModularRealmAuthenticator，可实现多Realm认证 -->
     <bean id="authenticator" class="com.bj186.shiro.PointRealmAuthenticator">
         <!-- 配置Realm认证策略 -->
-        <property name="authenticationStrategy">
-            <bean class="org.apache.shiro.authc.pam.AtLeastOneSuccessfulStrategy"/>
+        <property name="definedRealms">
+            <map>
+                <entry key="userRealm" value-ref="userRealm" />
+                <entry key="adminRealm" value-ref="adminRealm" />
+            </map>
         </property>
     </bean>
-
     <!-- 配置自定义Realm，自定义Realm需要继承org.apache.shiro.realm.AuthorizingRealm -->
     <bean id="userRealm" class="com.bj186.shiro.UserRealm">
         <!-- 配置密码匹配器 -->
@@ -116,9 +118,10 @@
                 /superadmin.html = roles[superadmin]
                 /admin.html = roles[admin]
                 /items/** = roles[admin]
-                /user.html = roles[user]
+                /user.html = roles[all]
                 /all.html = roles[all]
-                /call/**= anon
+                /test/**= anon
+                /user/**= anon
 
 
                 <!--除以上配置外，其他请求全部必须认证-->
