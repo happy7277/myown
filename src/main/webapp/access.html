@@ -40,13 +40,13 @@
                 <div class="layui-card-body ">
                     <form class="layui-form layui-col-space5">
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
+                            <input class="layui-input" placeholder="开始日" name="accessStartdate" id="start"></div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
+                            <input class="layui-input" placeholder="截止日" name="accessEnddate" id="end"></div>
 
                         <div class="layui-input-inline layui-show-xs-block">
-                            <select name="contrller">
-                                <option value="0">所有进出车辆</option>
+                            <select name="accessOther1">
+                                <option value="0" >所有进出车辆</option>
                                 <option value="1">未退场</option>
                                 <option value="2">已退场</option>
                             </select>
@@ -55,7 +55,7 @@
                             <input type="text" name="carcard" placeholder="请输入车牌号" autocomplete="off"
                                    class="layui-input"></div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="sreach">
+                            <button class="layui-btn" lay-submit lay-filter="sreach">
                                 <i class="layui-icon">&#xe615;</i></button>
                         </div>
                     </form>
@@ -73,9 +73,9 @@
                     <script type="text/html" id="switchTpl">
                         <!-- 这里的checked的状态只是演示 -->
                     </script>
+                    <!-- test 的点击事件-->
                     <script>
                         $(function(){
-                            // test 的点击事件
                             $("#jioncar").click(function(){
                                 $.ajax({
                                     url:"/car/jioncar", //处理页面的路径
@@ -96,8 +96,6 @@
                                     }
                                 });
                             });
-
-
                         })
                     </script>
                     <!--订单列表拿到数据-->
@@ -155,12 +153,43 @@
                             })
                         });
                     </script>
+                    <script>
+                        //监听搜索表单提交
+                        $(function  () {
+                            layui.use('form', function(){
+                                var form = layui.form;
+                                //监听提交
+                                form.on('submit(sreach)', function(data){
+                                    console.log(data);
+                                    console.log(data.field);
+                                    $.ajax({
+                                        url:"/car/access", //处理页面的路径
+                                        data:data.field, //要提交的数据是一个JSON
+                                        type:"post", //提交方式
+                                        // contentType:"Application/json",
+                                        dataType:"json", //返回数据的类型
+                                        //TEXT字符串 JSON返回JSON XML返回XML
+                                        success:function(re){ //回调函数 ,成功时返回的数据存在形参data里
+                                            console.log(re)
+
+                                        },
+                                        error:function (e) {
+                                            console.log(e);
+                                            layer.msg("查询异常")
+                                        }
+                                    });
+                                    return false;
+                                });
+                            });
+                        })
+                    </script>
                 </div>
             </div>
         </div>
     </div>
 </div>
 </body>
+
 <script>layui.use(['laydate', 'form'],
     function () {
         var laydate = layui.laydate;

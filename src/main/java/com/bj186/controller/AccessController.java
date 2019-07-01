@@ -38,6 +38,7 @@ public class AccessController {
         access.setAccessCarcard(palte);
         access.setAccessStartdate(new Date());
         access.setAccessCost("10");
+        access.setAccessOther1("1");
         int i = accessService.insertAccess(access);
         if (i == 1) {
             System.out.println("添加成功");
@@ -73,11 +74,14 @@ public class AccessController {
 
     @RequestMapping("/access")
     @ResponseBody
-    public void selectAccessList(HttpServletResponse response, HttpServletRequest request) {
+    public void selectAccessList(HttpServletResponse response, HttpServletRequest request,Access access) {
         System.out.println("查询access列表方法");
         HttpSession session = request.getSession();
         System.out.println("拿到的session：" + session);
         Map map = new HashMap<>();
+        if (access.getAccessOther1().equals("0")) {
+            access.setAccessOther1(null);
+        }
         List<Access> accessesList = accessService.selectAccessList();
         map.put("data", accessesList);
         map.put("code", "");
