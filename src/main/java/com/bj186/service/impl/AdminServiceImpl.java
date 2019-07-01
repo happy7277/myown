@@ -31,5 +31,10 @@ public class AdminServiceImpl implements AdminService {
         return this.adminMapper.getAdmin(username);
     }
 
+    @Override
+    public int updateByPrimaryKeySelective(Admin record) {
+        return this.adminMapper.updateByPrimaryKeySelective(record);
+    }
+
 
 }

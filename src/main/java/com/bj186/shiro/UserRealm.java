@@ -26,8 +26,8 @@ public class UserRealm extends AuthorizingRealm {
         System.out.println(user);
         if (user == null)
             throw new UnknownAccountException("用户不存在！");
-        System.out.println("doGetAuthenticationInfo username=" + user.getUserName());
-        System.out.println("doGetAuthenticationInfo password=" + user.getUserPassword());
+        System.out.println("doGetAuthenticationInfo username User=" + user.getUserName());
+        System.out.println("doGetAuthenticationInfo password User=" + user.getUserPassword());
 
         //  spring_database.xml文件中已经对此UserRealm bean对象设置了加密方式和次数，固这里无需重复配置，如果xml文件中没有配置，则需要代码配置
 //        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
@@ -50,17 +50,13 @@ public class UserRealm extends AuthorizingRealm {
     // 权限
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        Object principal = principalCollection.getPrimaryPrincipal();            //获取登录的用户pojo对象
-        User user = (User)principal;
-       String auth = user.getAuth();
-        System.out.println("AuthorizationInfo principal=" + principal);
+        Object principal = principalCollection.getPrimaryPrincipal();//获取登录的用户pojo对象
+        System.out.println("AuthorizationInfo principal User=" + principal);
     /*
        根据不同的权限判断可访问的资源
        info.addRole("1")中的形参值，在spring_database.xml中shiroFilter进行配置
     */
-        if("1".equals(auth)){
-            info.addRole("superadmin");
-        }
+
         info.addRole("all");
 
         return info;

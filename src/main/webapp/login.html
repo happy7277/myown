@@ -66,7 +66,7 @@
                                   icon: 6,//成功的表情
                                   time: 3000//1秒关闭（如果不配置，默认是3秒）
                               }, function(){
-                                   window.location.href = "/index.html";
+                                   window.location.href = "/index-car.html";
                               });
 
                           }
@@ -74,6 +74,13 @@
                               layer.msg(rep.msg,{
                                   icon: 6,//成功的表情
                                   time: 3000//1秒关闭（如果不配置，默认是3秒）
+                              });
+                          }else if (rep.returncode == 0) {
+                              layer.msg(rep.msg, {
+                                  icon: 6,//成功的表情
+                                  time: 3000//1秒关闭（如果不配置，默认是3秒）
+                              }, function(){
+                                  window.location.href = "/index.html";
                               });
                           }
                       },

@@ -25,8 +25,8 @@ public class AdminRealm extends AuthorizingRealm {
         admin = adminService.getAdmin(usernamePasswordToken.getUsername());          // 通过service查询用户名是否存在
         if (admin == null)
             throw new UnknownAccountException("用户不存在！");
-        System.out.println("doGetAuthenticationInfo username=" + admin.getAdminName());
-        System.out.println("doGetAuthenticationInfo password=" + admin.getAdminPassword());
+        System.out.println("doGetAuthenticationInfo username Admin=" + admin.getAdminName());
+        System.out.println("doGetAuthenticationInfo password Admin=" + admin.getAdminPassword());
 
         //  spring_database.xml文件中已经对此UserRealm bean对象设置了加密方式和次数，固这里无需重复配置，如果xml文件中没有配置，则需要代码配置
 //        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
@@ -49,10 +49,10 @@ public class AdminRealm extends AuthorizingRealm {
     // 权限
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        Object principal = principalCollection.getPrimaryPrincipal();            //获取登录的用户pojo对象
-        Admin admin = (Admin)principal;
+        Object principal1 = principalCollection.getPrimaryPrincipal();            //获取登录的用户pojo对象
+        Admin admin = (Admin)principal1;
         Integer adminPower = admin.getAdminPower();
-        System.out.println("AuthorizationInfo principal=" + principal);
+        System.out.println("AuthorizationInfo principal=" + principal1);
     /*
        根据不同的权限判断可访问的资源
        info.addRole("1")中的形参值，在spring_database.xml中shiroFilter进行配置

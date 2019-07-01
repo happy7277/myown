@@ -53,9 +53,16 @@ public class UserController {
             upTypeToken.setRememberMe(true);// 用户登录时效性
             try {
                 currentUser.login(upTypeToken);    // 调用realm认证用户权限
-                map.put("returncode", 1);
-                map.put("msg", "登陆成功");
+
                 Object principal = currentUser.getPrincipal();
+                boolean resoult = principal instanceof Admin;
+                if (resoult){
+                    map.put("returncode", 1);
+                }else {
+                    map.put("returncode", 0);
+                }
+
+                map.put("msg", "登陆成功");
                 Session session = currentUser.getSession();
                 session.setAttribute("loginman", principal);
                 System.out.println("拿到的对象" + principal);
@@ -109,7 +116,9 @@ public class UserController {
                 System.out.println("调用loginAdmin后拿到的对象："+admin);
                 if (admin != null ){
                     admin.setAdminPassword(md5(admin.getAdminName(),phonenumber1));
+                    int i = adminService.updateByPrimaryKeySelective(admin);
                     System.out.println("更新密码后的返回对象："+admin);
+                    System.out.println("更新密码结果："+i);
                     map.put("msg","密码已成功重置为手机号码！");
                     map.put("returncode", 1);
                 }else {

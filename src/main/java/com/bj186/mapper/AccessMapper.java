@@ -10,7 +10,7 @@ public interface AccessMapper {
 
     int updateAccess(Access access);
 
-    List<Access> selectAccessList(Access access);
+    List<Access> selectAccessList();
 
     List<Access> selectAccess(Access access);
 

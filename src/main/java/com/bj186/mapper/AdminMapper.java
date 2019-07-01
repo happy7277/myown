@@ -13,8 +13,6 @@ public interface AdminMapper {
 
     int updateByPrimaryKeySelective(Admin record);
 
-    int updateByPrimaryKey(Admin record);
-
     Admin loginAdmin(Admin admin);
 
     Admin getAdmin(String username);

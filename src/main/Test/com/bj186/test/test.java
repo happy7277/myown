@@ -1,6 +1,7 @@
 package com.bj186.test;
 
 
+import com.bj186.controller.AccessController;
 import com.bj186.controller.CarController;
 import com.bj186.pojo.Car;
 import org.junit.Before;
@@ -22,6 +23,7 @@ public class test {
     @Test
     public void tescar(){
         CarController carController = context.getBean(CarController.class);
+        AccessController accessController = context.getBean(AccessController.class);
         Car car = new Car();
         List<Car> cars = carController.selectCar(car);
         System.out.println(cars);

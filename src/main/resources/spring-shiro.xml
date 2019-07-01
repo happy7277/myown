@@ -101,6 +101,7 @@
                 /fonts/** = anon
                 /lib/** = anon
                 <!--加载不需要认证的页面-->
+
                 /loginadmin.html = anon
                 /login.html = anon
                 /findpwd.html = anon
@@ -114,7 +115,9 @@
                 /index.html = anon
                 /logout = logout
                 <!--权限控制-->
-
+                /access.html = roles[superadmin]
+                /car/access = roles[superadmin]
+                /car/updatecar = roles[superadmin]
                 /superadmin.html = roles[superadmin]
                 /admin.html = roles[admin]
                 /items/** = roles[admin]

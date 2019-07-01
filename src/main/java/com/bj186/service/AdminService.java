@@ -10,5 +10,7 @@ public interface AdminService {
 
     Admin getAdmin(String username);
 
+    int updateByPrimaryKeySelective(Admin record);
+
 
 }

@@ -1,6 +1,6 @@
 package com.bj186.pojo;
 
-import java.math.BigDecimal;
+
 import java.util.Date;
 
 public class Access {
@@ -12,7 +12,7 @@ public class Access {
 
     private Date accessEnddate;
 
-    private BigDecimal accessCost;
+    private String accessCost;
 
     private String accessOther1;
 
@@ -50,11 +50,11 @@ public class Access {
         this.accessEnddate = accessEnddate;
     }
 
-    public BigDecimal getAccessCost() {
+    public String getAccessCost() {
         return accessCost;
     }
 
-    public void setAccessCost(BigDecimal accessCost) {
+    public void setAccessCost(String accessCost) {
         this.accessCost = accessCost;
     }
 
@@ -72,5 +72,18 @@ public class Access {
 
     public void setAccessOther2(String accessOther2) {
         this.accessOther2 = accessOther2 == null ? null : accessOther2.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Access{" +
+                "accessId=" + accessId +
+                ", accessCarcard='" + accessCarcard + '\'' +
+                ", accessStartdate=" + accessStartdate +
+                ", accessEnddate=" + accessEnddate +
+                ", accessCost='" + accessCost + '\'' +
+                ", accessOther1='" + accessOther1 + '\'' +
+                ", accessOther2='" + accessOther2 + '\'' +
+                '}';
     }
 }

@@ -30,8 +30,8 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
-    public List<Access> selectAccessList(Access access) {
-        return this.accessMapper.selectAccessList(access);
+    public List<Access> selectAccessList() {
+        return this.accessMapper.selectAccessList();
     }
 
     @Override

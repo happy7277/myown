@@ -105,18 +105,6 @@
         </set>
         where admin_id = #{adminId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.bj186.pojo.Admin">
-    update admin
-    set admin_name = #{adminName,jdbcType=VARCHAR},
-      admin_password = #{adminPassword,jdbcType=VARCHAR},
-      admin_phonenumber = #{adminPhoneNumber,jdbcType=VARCHAR},
-      admin_post = #{adminPost,jdbcType=VARCHAR},
-      admin_power = #{adminPower,jdbcType=VARCHAR},
-      admin_salary = #{adminSalary,jdbcType=VARCHAR},
-      admin_date = #{adminDate,jdbcType=VARCHAR},
-      admin_status = #{adminStatus,jdbcType=INTEGER}
-    where admin_id = #{adminId,jdbcType=INTEGER}
-  </update>
 
     <select id="loginAdmin" parameterType="com.bj186.pojo.Admin" resultMap="BaseResultMap">
         select * from admin
