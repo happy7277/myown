@@ -99,6 +99,7 @@
                     form.on('submit(login)', function(data){
                         console.log(data);
                         console.log(data.field);
+                        console.log(JSON.stringify(data.field))
                         $.ajax({
                           /*  url:"/cars/caradd", //处理页面的路径
                             // data:JSON.stringify(field), //要提交的数据是一个JSON
@@ -108,10 +109,9 @@
                             dataType:"json", //返回数据的类型*/
                             url:'/cars/caradd',
                             type:'post',
-                            data:{'carCard':"123123",
-                                'carPid':12
-                            },
+                            data:JSON.stringify(data.field),
                             dataType:'json',
+                            contentType:"Application/json",
                             success:function(rep){ //回调函数 ,成功时返回的数据存在形参data里
                                 console.log(rep)
                             },

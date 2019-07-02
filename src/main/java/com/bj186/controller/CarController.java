@@ -59,7 +59,7 @@ public class CarController {
     }
     @RequestMapping("/caradd")
     @ResponseBody
-    public Map insert(Car car){
+    public Map insert(@RequestBody Car car){
         System.out.println("注入的对象：----------------");
         System.out.println(car);
         System.out.println("注入的对象结束-----------------");
