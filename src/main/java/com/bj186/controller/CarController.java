@@ -1,10 +1,13 @@
 package com.bj186.controller;
 
 import com.bj186.pojo.Car;
+import com.bj186.pojo.Park;
+import com.bj186.pojo.User;
 import com.bj186.service.CarService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -54,9 +57,15 @@ public class CarController {
             e.printStackTrace();
         }
     }
-
-    public int insert(Car car){
-        return carService.insertCar(car);
+    @RequestMapping("/caradd")
+    @ResponseBody
+    public Map insert(Car car){
+        System.out.println("注入的对象：----------------");
+        System.out.println(car);
+        System.out.println("注入的对象结束-----------------");
+        Map map = new HashMap();
+        map.put("code",1);
+        return map;
     }
 
     public int updateCar(Car car){

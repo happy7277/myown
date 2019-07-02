@@ -27,31 +27,31 @@
                       </label>
                       <div class="layui-input-inline">
                           <input type="text" id="username" name="username" required=""
-                          autocomplete="off" class="layui-input">
+                          autocomplete="off" class="layui-input" readonly="readonly">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="phone" class="layui-form-label">
+                      <label for="userPhone" class="layui-form-label">
                           <span class="x-red">*</span>业主手机
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="phone" name="phone" required="" lay-verify="phone"
-                          autocomplete="off" class="layui-input" >
+                          <input type="text" id="userPhone" name="userPhone" required="" lay-verify="phone"
+                          autocomplete="off" class="layui-input" readonly="readonly">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="L_email" class="layui-form-label">
+                      <label for="carCard" class="layui-form-label">
                           <span class="x-red">*</span>车牌号码
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="L_email" name="car_card" required=""
-                          autocomplete="off" class="layui-input" >
+                          <input type="text" id="carCard" name="carCard" required=""
+                          autocomplete="off" class="layui-input" readonly="readonly">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>
@@ -99,28 +99,25 @@
                 $ = layui.jquery;
                 var form = layui.form,
                 layer = layui.layer;
-                //自定义验证规则
-                form.verify({
-                   /* pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function(value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
-                        }
-                    }*/
-                });
             //表单初始赋值
                 var parent_json;
                 $(function () {
                     parent_json = eval('('+parent.update+')');
+                    console.log("表单赋值方法")
                     console.log(parent_json);
-                    $("#username").text(parent_json.carUid);
-                    $()
+                    form.val("caredit",{
+                        "username":parent_json.carUid,
+                        "carCard":parent_json.carCard,
+                    }
+                        )
+
 
                 })
 
 
 
-            });</script>
+            });
+        </script>
         <script>layui.use(['laydate', 'form'],
             function() {
                 var laydate = layui.laydate;

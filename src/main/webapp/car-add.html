@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="./css/xadmin.css">
         <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
         <script type="text/javascript" src="./js/xadmin.js"></script>
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
         <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
         <!--[if lt IE 9]>
             <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -22,11 +23,11 @@
             <div class="layui-row">
                 <form class="layui-form">
                   <div class="layui-form-item">
-                      <label for="username" class="layui-form-label">
+                      <label for="userName" class="layui-form-label">
                           <span class="x-red">*</span>业主姓名
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="username" name="username" required="" lay-verify="required"
+                          <input type="text" id="userName" name="userName" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -34,11 +35,11 @@
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="phone" class="layui-form-label">
+                      <label for="userPhone" class="layui-form-label">
                           <span class="x-red">*</span>业主手机
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="phone" name="phone" required="" lay-verify="phone"
+                          <input type="text" id="userPhone" name="userPhone" required="" lay-verify="phone"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -46,11 +47,11 @@
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="L_email" class="layui-form-label">
+                      <label for="carCard" class="layui-form-label">
                           <span class="x-red">*</span>车牌号码
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="L_email" name="car_card" required=""
+                          <input type="text" id="carCard" name="carCard" required=""
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -62,9 +63,9 @@
                       <label class="layui-form-label">有效期</label>
                       <div class="layui-input-block">
                           <div class="layui-input-inline layui-show-xs-block">
-                              <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
+                              <input class="layui-input" placeholder="开始日" name="carStartdate" id="carStartdate"></div>
                           <div class="layui-input-inline layui-show-xs-block">
-                              <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
+                              <input class="layui-input" placeholder="截止日" name="carEnddate" id="carEnddate"></div>
                           <div class="layui-form-mid layui-word-aux">
                               <span class="x-red">*</span>无私家车位，填写出入证有效期
                           </div>
@@ -75,7 +76,7 @@
                           车位号
                       </label>
                       <div class="layui-input-inline">
-                          <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
+                          <input type="text" id="L_pass" name="carPid" required="" lay-verify="pass"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -86,70 +87,43 @@
                   <div class="layui-form-item">
                       <label  class="layui-form-label">
                       </label>
-                      <button  class="layui-btn" lay-filter="add" lay-submit="">
-                          确认添加车辆
-                      </button>
+                      <input value="确认添加车辆" lay-submit lay-filter="login"  type="submit">
                   </div>
               </form>
             </div>
         </div>
-        <script>layui.use(['form', 'layer'],
-            function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                layer = layui.layer;
-                //自定义验证规则
-                form.verify({
-                   /* pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function(value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
-                        }
-                    }*/
-                });
-
-                //监听提交
-                form.on('submit(add)',
-                function(data) {
-                    console.log(data);
-                    //发异步，把数据提交给php
-                    $.ajax({
-                         url:"user/caradd", //处理页面的路径
-                        data:data.field, //要提交的数据是一个JSON
-                        type:"post", //提交方式
-                        dataType:"JSON", //返回数据的类型
-                        success:function(rep){ //回调函数 ,成功时返.回的数据存在形参data里
-                            if(rep.returncode == 1) {
-                                //trim()方法会去掉页面中的冗余空格
-                                layer.msg(req.msg, {
-                                    icon: 6,//成功的表情
-                                    time: 3000//1秒关闭（如果不配置，默认是3秒）
-                                }, function(){
-                                    //  window.location.href = "/order-view.html";
-                                });
-                                 //关闭当前frame
-                                 xadmin.close();
-                                 // 可以对父窗口进行刷新
-                                 xadmin.father_reload();
-
-
+        <script>
+                layui.use('form', function(){
+                    var form = layui.form;
+                    //监听提交
+                    form.on('submit(login)', function(data){
+                        console.log(data);
+                        console.log(data.field);
+                        $.ajax({
+                          /*  url:"/cars/caradd", //处理页面的路径
+                            // data:JSON.stringify(field), //要提交的数据是一个JSON
+                            data:field,
+                            type:"post", //提交方式
+                            contentType:"Application/json",
+                            dataType:"json", //返回数据的类型*/
+                            url:'/cars/caradd',
+                            type:'post',
+                            data:{'carCard':"123123",
+                                'carPid':12
+                            },
+                            dataType:'json',
+                            success:function(rep){ //回调函数 ,成功时返回的数据存在形参data里
+                                console.log(rep)
+                            },
+                            error:function (e) {
+                                console.log(e);
+                                layer.msg("添加异常")
                             }
-                            else if (rep.returncode == -1) {
-                                layer.msg("添加失败！");
-                            }
-                        },
-                        error:function (e) {
-                            console.log(e);
-                            layer.msg("添加操作异常")
-
-
-                        }
-
-                } )
-                    return false;
+                        });
+                        return false;
+                    });
                 });
-
-            });</script>
+        </script>
         <script>layui.use(['laydate', 'form'],
             function() {
                 var laydate = layui.laydate;
