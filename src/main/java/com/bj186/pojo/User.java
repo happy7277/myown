@@ -70,11 +70,11 @@ public class User {
         this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public String getUserPhonenuber() {
+    public String getUserPhonenumber() {
         return userPhonenumber;
     }
 
-    public void setUserPhonenuber(String userPhonenuber) {
+    public void setUserPhonenumber(String userPhonenuber) {
         this.userPhonenumber = userPhonenuber == null ? null : userPhonenuber.trim();
     }
 

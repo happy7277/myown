@@ -7,7 +7,7 @@
     <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
     <result column="user_phonenumber" jdbcType="VARCHAR" property="userPhonenumber" />
     <result column="user_dress" jdbcType="VARCHAR" property="userDress" />
-    <result column="user_sise" jdbcType="VARCHAR" property="userSise" />
+    <result column="user_size" jdbcType="VARCHAR" property="userSise" />
     <result column="user_type" jdbcType="INTEGER" property="userType" />
     <result column="user_auth" jdbcType="INTEGER" property="auth" />
   </resultMap>
@@ -26,13 +26,13 @@
         user_password,
       </if>
       <if test="userPhonenumber != null">
-        user_phonenuber,
+        user_phonenumber,
       </if>
       <if test="userDress != null">
         user_dress,
       </if>
       <if test="userSise != null">
-        user_sise,
+        user_size,
       </if>
       <if test="userType != null">
         user_type,
@@ -49,13 +49,13 @@
         #{userPassword,jdbcType=VARCHAR},
       </if>
       <if test="userPhonenumber != null">
-        #{userPhonenuber,jdbcType=VARCHAR},
+        #{userPhonenumber,jdbcType=VARCHAR},
       </if>
       <if test="userDress != null">
         #{userDress,jdbcType=VARCHAR},
       </if>
       <if test="userSise != null">
-        #{userSise,jdbcType=VARCHAR},
+        #{userSize,jdbcType=VARCHAR},
       </if>
       <if test="userType != null">
         #{userType,jdbcType=INTEGER},
@@ -71,14 +71,14 @@
       <if test="userPassword != null">
         user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="userPhonenuber != null">
-        user_phonenuber = #{userPhonenuber,jdbcType=VARCHAR},
+      <if test="userPhonenumber != null">
+        user_phonenumber = #{userPhonenumber,jdbcType=VARCHAR},
       </if>
       <if test="userDress != null">
         user_dress = #{userDress,jdbcType=VARCHAR},
       </if>
       <if test="userSise != null">
-        user_sise = #{userSise,jdbcType=VARCHAR},
+        user_size = #{userSise,jdbcType=VARCHAR},
       </if>
       <if test="userType != null">
         user_type = #{userType,jdbcType=INTEGER},
@@ -92,7 +92,7 @@
       user_password = #{userPassword,jdbcType=VARCHAR},
       user_phonenumber = #{userPhonenumber,jdbcType=VARCHAR},
       user_dress = #{userDress,jdbcType=VARCHAR},
-      user_sise = #{userSise,jdbcType=VARCHAR},
+      user_size = #{userSise,jdbcType=VARCHAR},
       user_type = #{userType,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -111,8 +111,8 @@
   <if test="userPassword != null">
     user_password = #{userPassword,jdbcType=VARCHAR},
   </if>
-  <if test="userPhonenuber != null">
-    user_phonenuber = #{userPhonenuber,jdbcType=VARCHAR},
+  <if test="userPhonenumber != null">
+    user_phonenumber = #{userPhonenumber,jdbcType=VARCHAR},
   </if>
   <if test="userId != null">
     user_id = #{userId,jdbcType=INTEGER}
@@ -141,14 +141,14 @@
       <if test="userPassword != null">
         and user_password = #{userPassword,jdbcType=VARCHAR}
       </if>
-      <if test="userPhonenuber != null">
-        and user_phonenuber = #{userPhonenuber,jdbcType=VARCHAR}
+      <if test="userPhonenumber != null">
+        and user_phonenumber = #{userPhonenumber,jdbcType=VARCHAR}
       </if>
       <if test="userDress != null">
         and  user_dress = #{userDress,jdbcType=VARCHAR}
       </if>
       <if test="userSise != null">
-        and  user_sise = #{userSise,jdbcType=VARCHAR}
+        and  user_size = #{userSise,jdbcType=VARCHAR}
       </if>
       <if test="userType != null">
         and user_type = #{userType,jdbcType=INTEGER}

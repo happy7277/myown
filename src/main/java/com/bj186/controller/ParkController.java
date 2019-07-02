@@ -2,6 +2,7 @@ package com.bj186.controller;
 
 import com.bj186.pojo.Car;
 import com.bj186.pojo.Park;
+import com.bj186.pojo.ParkUpdatePojo;
 import com.bj186.pojo.User;
 import com.bj186.service.CarService;
 import com.bj186.service.ParkService;
@@ -9,12 +10,14 @@ import com.bj186.service.UserService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,49 +29,79 @@ public class ParkController {
     private ParkService parkService;
     private UserService userService;
     private CarService carService;
+
     @Autowired
-    public ParkController(ParkService parkService, UserService userService,CarService carService) {
+    public ParkController(ParkService parkService, UserService userService, CarService carService) {
         this.parkService = parkService;
-        this.carService =  carService;
+        this.carService = carService;
         this.userService = userService;
     }
 
-    @RequestMapping("/sale")
-    @ResponseBody
-   public void insertPark(User user,Car car){
-        System.out.println("后台:park/sale------------------" );
-        System.out.println("user:"+user);
-        System.out.println("car:"+car);
+
+    public void insertPark(User user, Car car) {
+        System.out.println("后台:park/sale------------------");
+        System.out.println("user:" + user);
+        System.out.println("car:" + car);
         List<User> users = userService.selectUser(user);
         List<Car> cars = carService.selectCar(car);
         User getuser = users.get(0);
         Car getcar = cars.get(0);
-        System.out.println("查出来的user:"+getuser);
-        System.out.println("查出来的car:"+getcar);
+        System.out.println("查出来的user:" + getuser);
+        System.out.println("查出来的car:" + getcar);
         Park park = new Park();
         park.setParkUid(getuser.getUserId());
-        
 
 
     }
 
-   public int updatePark(Park record){
-        return this.parkService.updatePark(record);
-   }
+    @RequestMapping("/sale")
+    @ResponseBody
+    public Map updatePark(@RequestBody ParkUpdatePojo pojo) {
+        System.out.println("注入的对象:-------------");
+        Map map = new HashMap();
+        System.out.println(pojo);
+        Park park = new Park();
+        User user = new User();
+        Car car = new Car();
+        user.setUserName(pojo.getUserName());
+        user.setUserPhonenumber(pojo.getUserPhonenumber());
+        car.setCarCard(pojo.getCarCard());
+        park.setParkId(pojo.getParkId());
+        if (pojo.getCarCard() != "") {
+            car = carService.selectCar(car).get(0);
+            park.setParkCid(car.getCarId());
+        }
+        user = userService.selectUser(user).get(0);
+
+        park.setParkUid(user.getUserId());
+        int i = parkService.updatePark(park);
+        if (i == 1) {
+            map.put("msg", "添加成功!");
+            map.put("returncode", 1);
+            map.put("data", "");
+            map.put("code", "");
+        } else {
+            map.put("returncode", -1);
+            map.put("msg", "添加失败!");
+            map.put("data", "");
+            map.put("code", "");
+        }
+         return map;
+    }
 
 
-   @RequestMapping("/parklist")
-   @ResponseBody
-   public void selectPark(HttpServletResponse response, HttpServletRequest request ){
+    @RequestMapping("/parklist")
+    @ResponseBody
+    public void selectPark(HttpServletResponse response, HttpServletRequest request) {
         System.out.println("后台:park/parklist--------");
         Map map = new HashMap<>();
         Park park = new Park();
         List<Park> parks = parkService.selectParkList(park);
         System.out.println(parks);
-        map.put("data",parks);
-        map.put("msg","");
-        map.put("code","");
-        map.put("count",parks.size());
+        map.put("data", parks);
+        map.put("msg", "");
+        map.put("code", "");
+        map.put("count", parks.size());
         response.setCharacterEncoding("utf-8");
         JSONObject json = new JSONObject(map);
         try {
@@ -76,10 +109,10 @@ public class ParkController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-   }
+    }
 
-   public List<Park> selectParkList(Park park){
+    public List<Park> selectParkList(Park park) {
         return this.parkService.selectParkList(park);
-   }
+    }
 
 }

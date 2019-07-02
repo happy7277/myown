@@ -62,38 +62,35 @@
                       <label class="layui-form-label">有效期</label>
                       <div class="layui-input-block">
                           <div class="layui-input-inline layui-show-xs-block">
-                              <input class="layui-input" placeholder="开始日" name="start" id="start"></div>
+                              <input class="layui-input" placeholder="开始日" name="carStartdate" id="start"></div>
                           <div class="layui-input-inline layui-show-xs-block">
-                              <input class="layui-input" placeholder="截止日" name="end" id="end"></div>
+                              <input class="layui-input" placeholder="截止日" name="carEnddate" id="end"></div>
                           <div class="layui-form-mid layui-word-aux">
                               <span class="x-red">*</span>无私家车位，填写出入证有效期
                           </div>
                       </div>
                   </div>
                   <div class="layui-form-item">
-                      <label for="L_pass" class="layui-form-label">
+                      <label for="carPid" class="layui-form-label">
                           车位号
                       </label>
                       <div class="layui-input-inline">
-                          <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
+                          <input type="text" id="carPid" name="carPid" required=""
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
                           <span class="x-red">*</span>有私家车位，填写车位号
                       </div>
                   </div>
-
-                  <div class="layui-form-item">
-                      <label  class="layui-form-label">
-                      </label>
-                      <button  class="layui-btn" lay-filter="add" lay-submit="">
-                          确认添加车辆
-                      </button>
-                  </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label">
+                        </label>
+                        <input value="确认修改" lay-submit lay-filter="login"  type="submit">
+                    </div>
               </form>
             </div>
         </div>
-
+        <!--从父页面取值,赋给子页面-->
         <script>layui.use(['form', 'layer'],
             function() {
                 $ = layui.jquery;
@@ -106,8 +103,12 @@
                     console.log("表单赋值方法")
                     console.log(parent_json);
                     form.val("caredit",{
-                        "username":parent_json.carUid,
+                        "username":parent_json.carOther1,
                         "carCard":parent_json.carCard,
+                        "userPhone":parent_json.carOther2,
+                        "carStartdate":parent_json.carStartdate,
+                        "carEnddate":parent_json.carEnddate,
+                        "carPid":parent_json.carPid,
                     }
                         )
 
@@ -116,6 +117,52 @@
 
 
 
+            });
+        </script>
+        <!-- 表单提交监听-->
+        <script>
+            layui.use('form', function(){
+                var form = layui.form;
+                //监听提交
+                form.on('submit(login)', function(data){
+                    console.log(data);
+                    console.log(data.field);
+                    console.log(JSON.stringify(data.field))
+                    $.ajax({
+                        /*  url:"/cars/caradd", //处理页面的路径
+                          // data:JSON.stringify(field), //要提交的数据是一个JSON
+                          data:field,
+                          type:"post", //提交方式
+                          contentType:"Application/json",
+                          dataType:"json", //返回数据的类型*/
+                        url:'/cars/carupdate',
+                        type:'post',
+                        data:JSON.stringify(data.field),
+                        dataType:'json',
+                        contentType:"Application/json",
+                        success:function(rep){ //回调函数 ,成功时返回的数据存在形参data里
+                            if(rep.returncode == 1) {
+                                layer.msg(rep.msg, {
+                                    icon: 6,//成功的表情
+                                    time: 1000//1秒关闭（如果不配置，默认是3秒）
+                                }, function(){
+                                    window.close();
+                                });
+                            }
+                            else if (rep.returncode == -1) {
+                                layer.msg(rep.msg,{
+                                    icon: 6,//成功的表情
+                                    time: 1000//1秒关闭（如果不配置，默认是3秒）
+                                });
+                            }
+                        },
+                        error:function (e) {
+                            console.log(e);
+                            layer.msg("添加异常")
+                        }
+                    });
+                    return false;
+                });
             });
         </script>
         <script>layui.use(['laydate', 'form'],

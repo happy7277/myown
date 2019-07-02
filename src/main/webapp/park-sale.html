@@ -20,7 +20,43 @@
     <body>
         <div class="layui-fluid">
             <div class="layui-row">
-                <form class="layui-form">
+                <form class="layui-form" lay-filter="caredit">
+                    <div class="layui-form-item">
+                        <label for="parkId" class="layui-form-label">
+                            <span class="x-red">*</span>车位ID
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="parkId" name="parkId" required=""
+                                   autocomplete="off" class="layui-input" readonly="readonly">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="parkLocal" class="layui-form-label">
+                            <span class="x-red">*</span>车位地址
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="parkLocal" name="parkLocal" required=""
+                                   autocomplete="off" class="layui-input" readonly="readonly">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label for="parkPrice" class="layui-form-label">
+                            <span class="x-red">*</span>车位价格
+                        </label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="parkPrice" name="parkPrice" required=""
+                                   autocomplete="off" class="layui-input" readonly="readonly">
+                        </div>
+                        <div class="layui-form-mid layui-word-aux">
+                            <span class="x-red">*</span>
+                        </div>
+                    </div>
                   <div class="layui-form-item">
                       <label for="userName" class="layui-form-label">
                           <span class="x-red">*</span>业主姓名
@@ -57,74 +93,86 @@
                           <span class="x-red">*</span>
                       </div>
                   </div>
-
-                  <div class="layui-form-item">
-                      <label  class="layui-form-label">
-                      </label>
-                      <button  class="layui-btn" lay-filter="add" lay-submit="">
-                          确认售出车辆
-                      </button>
-                  </div>
+                    <div class="layui-form-item">
+                        <label  class="layui-form-label">
+                        </label>
+                        <input value="确认售出" lay-submit lay-filter="login"  type="submit">
+                    </div>
               </form>
             </div>
         </div>
-        <script>layui.use(['form', 'layer'],
-            function() {
-                $ = layui.jquery;
-                var form = layui.form,
-                layer = layui.layer;
-                //自定义验证规则
-                form.verify({
-                   /* pass: [/(.+){6,12}$/, '密码必须6到12位'],
-                    repass: function(value) {
-                        if ($('#L_pass').val() != $('#L_repass').val()) {
-                            return '两次密码不一致';
-                        }
-                    }*/
-                });
-
+        <script>
+            layui.use('form', function(){
+                var form = layui.form;
                 //监听提交
-                form.on('submit(add)',
-                function(data) {
+                form.on('submit(login)', function(data){
                     console.log(data);
-                    //发异步，把数据提交给php
+                    console.log(data.field);
+                    console.log(JSON.stringify(data.field))
                     $.ajax({
-                         url:"park/sale", //处理页面的路径
-                        data:data.field, //要提交的数据是一个JSON
-                        type:"post", //提交方式
-                        dataType:"JSON", //返回数据的类型
-                        success:function(rep){ //回调函数 ,成功时返.回的数据存在形参data里
+                        /*  url:"/cars/caradd", //处理页面的路径
+                          // data:JSON.stringify(field), //要提交的数据是一个JSON
+                          data:field,
+                          type:"post", //提交方式
+                          contentType:"Application/json",
+                          dataType:"json", //返回数据的类型*/
+                        url:'/park/sale',
+                        type:'post',
+                        data:JSON.stringify(data.field),
+                        dataType:'json',
+                        contentType:"Application/json",
+                        success:function(rep){ //回调函数 ,成功时返回的数据存在形参data里
                             if(rep.returncode == 1) {
-                                //trim()方法会去掉页面中的冗余空格
-                                layer.msg(req.msg, {
+                                layer.msg(rep.msg, {
                                     icon: 6,//成功的表情
-                                    time: 3000//1秒关闭（如果不配置，默认是3秒）
+                                    time: 1000//1秒关闭（如果不配置，默认是3秒）
                                 }, function(){
-                                    //  window.location.href = "/order-view.html";
+                                    window.close();
                                 });
-                                 //关闭当前frame
-                                 xadmin.close();
-                                 // 可以对父窗口进行刷新
-                                 xadmin.father_reload();
-
-
                             }
                             else if (rep.returncode == -1) {
-                                layer.msg("添加失败！");
+                                layer.msg(rep.msg,{
+                                    icon: 6,//成功的表情
+                                    time: 1000//1秒关闭（如果不配置，默认是3秒）
+                                });
                             }
                         },
                         error:function (e) {
                             console.log(e);
-                            layer.msg("添加操作异常")
-
-
+                            layer.msg("添加异常")
                         }
-
-                } )
+                    });
                     return false;
                 });
+            });
+        </script>
+<!--        从父页面获取值-->
+        <script>layui.use(['form', 'layer'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                    layer = layui.layer;
+                //表单初始赋值
+                var parent_json;
+                $(function () {
+                    parent_json = eval('('+parent.update+')');
+                    console.log("表单赋值方法")
+                    console.log(parent_json);
+                    form.val("caredit",{
+                            "parkId":parent_json.parkId,
+                            "parkLocal":parent_json.parkLocal,
+                            "parkPrice":parent_json.parkPrice,
 
-            });</script>
+                        }
+                    )
+
+
+                })
+
+
+
+            });
+        </script>
         <script>layui.use(['laydate', 'form'],
             function() {
                 var laydate = layui.laydate;

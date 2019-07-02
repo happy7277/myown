@@ -56,10 +56,10 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="layui-card-header">
-                            <button class="layui-btn" id="jioncar" onclick="xadmin.open('车位登记','park-sale.html')">
-                                <i class="layui-icon"></i>车位出售登记</button></div>
-                        <div class="layui-card-body ">
+<!--                        <div class="layui-card-header">-->
+<!--                            <button class="layui-btn" id="jioncar" onclick="xadmin.open('车位登记','park-sale.html')">-->
+<!--                                <i class="layui-icon"></i>车位出售登记</button></div>-->
+<!--                        <div class="layui-card-body ">-->
                             <table class="layui-hide" id="carlist" lay-filter="carlist"></table>
                             <script type="text/html" id="barDemo">
                                 <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
@@ -72,6 +72,8 @@
     </body>
 
     <!--订单列表拿到数据--><script>
+        var update;
+        var data;
         layui.use('table', function(){
             var table = layui.table;
             table.render({
@@ -79,8 +81,8 @@
                 ,url:'/park/parklist'
                 ,cols: [[
                     {field:'parkId', title: '车库id'}
-                    ,{field:'parkUid',  title: '业主姓名'}
-                    ,{field:'car_card',  title: '车牌号'}
+                    ,{field:'name',  title: '业主姓名'}
+                    ,{field:'card',  title: '车牌号'}
                     ,{field:'parkSaledate',  title: '出售时间'}
                     ,{field:'parkPrice',  title: '车位价格'}
                     ,{field:'parkLocal',  title: '车位信息'}
@@ -91,7 +93,7 @@
 
             //监听工具条
             table.on('tool(carlist)', function(obj){
-                var data = obj.data;
+                 data = obj.data;
                 console.log(data);
                 if(obj.event === 'detail'){
                     layer.msg('ID：'+ data.id + ' 的查看操作');
@@ -102,7 +104,19 @@
                     });
                 } else if(obj.event === 'edit'){
                     layer.alert('编辑行：<br>'+ JSON.stringify(data));
-                    xadmin.open('登记新车辆','car-edit.html');
+                    update = JSON.stringify(data) ;
+                    layer.open(
+                        {
+                            title:'车库信息更改',
+                            maxmin:true,
+                            type:2,
+                            content:'/park-sale.html',
+                            area:['800px','500px'],
+                            end:function () {
+                                location.reload();
+                            }
+                        }
+                    )
                 }
             });
         });

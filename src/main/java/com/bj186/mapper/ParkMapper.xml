@@ -6,7 +6,11 @@
     <result column="Park_uid" jdbcType="INTEGER" property="parkUid" />
     <result column="Park_local" jdbcType="VARCHAR" property="parkLocal" />
     <result column="Park_price" jdbcType="VARCHAR" property="parkPrice" />
+    <result column="Park_cid" jdbcType="INTEGER" property="parkCid" />
     <result column="Park_saledate" jdbcType="TIMESTAMP" property="parkSaledate" />
+    <result column="Car_card" jdbcType="VARCHAR" property="card" />
+    <result column="user_name" jdbcType="VARCHAR" property="name" />
+
   </resultMap>
 
   <insert id="insertPark" parameterType="com.bj186.pojo.Park">
@@ -24,6 +28,9 @@
       <if test="parkPrice != null">
         Park_price,
       </if>
+      <if test="parkCid != null">
+        Park_cid,
+      </if>
       <if test="parkSaledate != null">
         Park_saledate,
       </if>
@@ -40,6 +47,9 @@
       </if>
       <if test="parkPrice != null">
         #{parkPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="parkCid != null">
+        #{parkCid,jdbcType=VARCHAR},
       </if>
       <if test="parkSaledate != null">
         #{parkSaledate,jdbcType=TIMESTAMP},
@@ -61,12 +71,19 @@
       <if test="parkSaledate != null">
         Park_saledate = #{parkSaledate,jdbcType=TIMESTAMP},
       </if>
+      <if test="parkCid != null">
+        Park_cid = #{parkCid,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where Park_id = #{parkId,jdbcType=INTEGER}
   </update>
 
   <select id="selectParkList" parameterType="com.bj186.pojo.Park" resultMap="BaseResultMap">
-    select * from park
+    select p.Park_id, car.Car_card ,u.user_name ,p.Park_local,p.Park_price,p.Park_saledate from park p
+    left join user u
+    on p.Park_uid = u.user_id
+    LEFT JOIN car car
+    on p.Park_cid = car.Car_id
     <where>
     <if test="parkUid != null">
       Park_uid = #{parkUid,jdbcType=INTEGER},
