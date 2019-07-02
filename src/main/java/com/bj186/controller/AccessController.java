@@ -79,8 +79,10 @@ public class AccessController {
         HttpSession session = request.getSession();
         System.out.println("拿到的session：" + session);
         Map map = new HashMap<>();
-        if (access.getAccessOther1().equals("0")) {
-            access.setAccessOther1(null);
+        if (access == null) {
+            if (access.getAccessOther1().equals("0")) {
+                access.setAccessOther1(null);
+            }
         }
         List<Access> accessesList = accessService.selectAccessList();
         map.put("data", accessesList);

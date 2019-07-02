@@ -71,19 +71,20 @@
     </body>
 
     <!--订单列表拿到数据--><script>
+        var update;
+        var data;
         layui.use('table', function(){
             var table = layui.table;
             table.render({
                 elem: '#carlist'
-                ,url:'./table.json'
+                ,url:'/cars/carlist'
                 ,cols: [[
-                    { type:'checkbox'}
-                    ,{field:'id', title: '车辆id'}
-                    ,{field:'user_name',  title: '业主姓名'}
-                    ,{field:'car_card',  title: '车牌号'}
-                    ,{field:'start',  title: '出入证开始时间'}
-                    ,{field:'end',  title: '出入证到期时间'}
-                    ,{field:'car_pid',  title: '车位号'}
+                    {field:'carId', title: '车辆id'}
+                    ,{field:'carUid',  title: '业主姓名'}
+                    ,{field:'carCard',  title: '车牌号'}
+                    ,{field:'carStartdate',  title: '出入证开始时间'}
+                    ,{field:'carEnddate',  title: '出入证到期时间'}
+                    ,{field:'carPid',  title: '车位号'}
                     ,{field:'wealth',  title: '操作',toolbar: '#barDemo'}
                 ]]
                 ,page: true
@@ -91,7 +92,7 @@
 
             //监听工具条
             table.on('tool(carlist)', function(obj){
-                var data = obj.data;
+                 data = obj.data;
                 console.log(data);
                 if(obj.event === 'detail'){
                     layer.msg('ID：'+ data.id + ' 的查看操作');
@@ -102,7 +103,19 @@
                     });
                 } else if(obj.event === 'edit'){
                     layer.alert('编辑行：<br>'+ JSON.stringify(data));
-                    xadmin.open('登记新车辆','car-edit.html');
+                    update = JSON.stringify(data) ;
+                    layer.open(
+                        {
+                            title:'车辆信息更改',
+                            maxmin:true,
+                            type:2,
+                            content:'/car-edit.html',
+                            area:['800px','500px'],
+                            end:function () {
+                                location.reload();
+                            }
+                        }
+                    )
                 }
             });
         });

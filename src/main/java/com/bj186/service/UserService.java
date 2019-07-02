@@ -5,7 +5,6 @@ import com.bj186.pojo.User;
 import java.util.List;
 
 public interface UserService {
-    public List<User> selectUser();
 
     public User getUser(String username);
 
@@ -18,6 +17,8 @@ public interface UserService {
     int updateByPhone(User record);//通过电话重置密码
 
     int updateByPrimaryKey(User record);
+
+    List<User> selectUser(User user);
 
 
 }

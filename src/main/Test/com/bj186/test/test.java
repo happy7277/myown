@@ -24,9 +24,7 @@ public class test {
     public void tescar(){
         CarController carController = context.getBean(CarController.class);
         AccessController accessController = context.getBean(AccessController.class);
-        Car car = new Car();
-        List<Car> cars = carController.selectCar(car);
-        System.out.println(cars);
+
 
     }
 

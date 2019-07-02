@@ -132,4 +132,27 @@
     where
     user_phonenumber = #{phonenumber,jdbcType=INTEGER}
   </select>
+  <select id="selectUser" parameterType="com.bj186.pojo.User" resultMap="BaseResultMap">
+    select * from user
+    <where>
+      <if test="userName != null">
+       and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userPassword != null">
+        and user_password = #{userPassword,jdbcType=VARCHAR}
+      </if>
+      <if test="userPhonenuber != null">
+        and user_phonenuber = #{userPhonenuber,jdbcType=VARCHAR}
+      </if>
+      <if test="userDress != null">
+        and  user_dress = #{userDress,jdbcType=VARCHAR}
+      </if>
+      <if test="userSise != null">
+        and  user_sise = #{userSise,jdbcType=VARCHAR}
+      </if>
+      <if test="userType != null">
+        and user_type = #{userType,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
 </mapper>

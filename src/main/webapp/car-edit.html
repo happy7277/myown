@@ -93,6 +93,7 @@
               </form>
             </div>
         </div>
+
         <script>layui.use(['form', 'layer'],
             function() {
                 $ = layui.jquery;
@@ -108,13 +109,13 @@
                     }*/
                 });
             //表单初始赋值
-                form.val("caredit", {
-                    "username":"渣渣辉"
-                    ,"id": "10001"
-                    ,"carcard": "川AR12345"
-                    ,"start": "2018-02-13"
-                    ,"end": "2019-02-05"
-                    ,"cost": "50"
+                var parent_json;
+                $(function () {
+                    parent_json = eval('('+parent.update+')');
+                    console.log(parent_json);
+                    $("#username").text(parent_json.carUid);
+                    $()
+
                 })
 
 

@@ -113,10 +113,9 @@
   </update>
 
 <!--  查找车辆信息的方法-->
-  <select id="selectCar" parameterType="com.bj186.pojo.Car" resultType="com.bj186.pojo.Car">
+  <select id="selectCar" parameterType="com.bj186.pojo.Car" resultMap="BaseResultMap">
     select * from car
     <where>
-
       <if test="carUid != null">
         and car_uid = #{carUid}
       </if>
@@ -131,7 +130,7 @@
       </if>
     </where>
   </select>
-  <select id="selectCarList" parameterType="com.bj186.pojo.Car" resultType="com.bj186.pojo.Car">
+  <select id="selectCarList" parameterType="com.bj186.pojo.Car" resultMap="BaseResultMap">
     select * from car
     <where>
       <if test="carUid != null">

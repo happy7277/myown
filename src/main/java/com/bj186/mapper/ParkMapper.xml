@@ -65,9 +65,9 @@
     where Park_id = #{parkId,jdbcType=INTEGER}
   </update>
 
-  <select id="selectParkList" parameterType="com.bj186.pojo.Park" resultType="com.bj186.pojo.Park">
+  <select id="selectParkList" parameterType="com.bj186.pojo.Park" resultMap="BaseResultMap">
     select * from park
-    where
+    <where>
     <if test="parkUid != null">
       Park_uid = #{parkUid,jdbcType=INTEGER},
     </if>
@@ -79,10 +79,10 @@
     </if>
     <if test="parkSaledate != null">
       Park_saledate = #{parkSaledate,jdbcType=TIMESTAMP},
-    </if>
+    </if></where>
   </select>
 
-  <select id="selectPark" parameterType="com.bj186.pojo.Park" resultType="com.bj186.pojo.Park">
+  <select id="selectPark" parameterType="com.bj186.pojo.Park" resultMap="BaseResultMap">
     select * from park
     where
     Park_id = #{parkId,jdbcType=INTEGER}

@@ -109,7 +109,7 @@
     </if>
   </select>
 
-  <select id="selectAccessList"  resultMap="BaseResultMap">
+  <select id="selectAccessList" parameterType="com.bj186.pojo.Access"  resultMap="BaseResultMap">
     select * from access
     <where>
       <if test="accessCarcard != null">

@@ -22,11 +22,11 @@
             <div class="layui-row">
                 <form class="layui-form">
                   <div class="layui-form-item">
-                      <label for="username" class="layui-form-label">
+                      <label for="userName" class="layui-form-label">
                           <span class="x-red">*</span>业主姓名
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="username" name="username" required="" lay-verify="required"
+                          <input type="text" id="username" name="userName" required="" lay-verify="required"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -38,7 +38,7 @@
                           <span class="x-red">*</span>业主手机
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="phone" name="phone" required="" lay-verify="phone"
+                          <input type="text" id="phone" name="userPhonenumber" required="" lay-verify="phone"
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -50,7 +50,7 @@
                           <span class="x-red">*</span>该车位绑定车牌号码
                       </label>
                       <div class="layui-input-inline">
-                          <input type="text" id="L_email" name="car_card" required=""
+                          <input type="text" id="L_email" name="carCard" required=""
                           autocomplete="off" class="layui-input">
                       </div>
                       <div class="layui-form-mid layui-word-aux">
@@ -89,7 +89,7 @@
                     console.log(data);
                     //发异步，把数据提交给php
                     $.ajax({
-                         url:"user/caradd", //处理页面的路径
+                         url:"park/sale", //处理页面的路径
                         data:data.field, //要提交的数据是一个JSON
                         type:"post", //提交方式
                         dataType:"JSON", //返回数据的类型

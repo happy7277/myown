@@ -13,6 +13,8 @@ public class Park {
 
     private Date parkSaledate;
 
+
+
     public Date getParkSaledate() {
         return parkSaledate;
     }

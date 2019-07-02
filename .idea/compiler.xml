@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="myown_" />
         <module name="shiro" />
+        <module name="myown_" />
+        <module name="myown_1" />
       </profile>
     </annotationProcessing>
   </component>

@@ -11,6 +11,7 @@ public interface UserMapper {
 
     int insertSelective(User record);
 
+
     User selectByPrimaryKey(Integer userId);
 
     int updateByPrimaryKeySelective(User record);
@@ -21,7 +22,7 @@ public interface UserMapper {
 
     User getUserByphone(String phonenumber);//通过电话查找用户
 
-    List<User> selectUser();
+    List<User> selectUser(User user);
 
     User getUser(String username);
 

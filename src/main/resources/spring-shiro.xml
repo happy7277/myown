@@ -118,6 +118,8 @@
                 /access.html = roles[superadmin]
                 /car/access = roles[superadmin]
                 /car/updatecar = roles[superadmin]
+                /cars/** = roles[superadmin]
+                /park/** = roles[superadmin]
                 /superadmin.html = roles[superadmin]
                 /admin.html = roles[admin]
                 /items/** = roles[admin]

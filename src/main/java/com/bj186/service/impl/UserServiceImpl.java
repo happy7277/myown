@@ -18,10 +18,7 @@ public class UserServiceImpl implements UserService {
         this.userMapper = userMapper;
     }
 
-    public List<User> selectUser() {
-        return userMapper.selectUser();
 
-    }
 
     //    @Transactional(rollbackFor = Exception.class)
     public User getUser(String username) {
@@ -52,6 +49,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updateByPrimaryKey(User record) {
         return this.userMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public List<User> selectUser(User user) {
+
+        return this.userMapper.selectUser(user);
     }
 }
 
