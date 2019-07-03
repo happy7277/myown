@@ -3,6 +3,7 @@ package com.bj186.service;
 import com.bj186.pojo.Car;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CarService {
     int insertCar(Car car); //增加车辆信息
@@ -11,5 +12,5 @@ public interface CarService {
 
     List<Car> selectCar(Car car);  //查找车辆信息,返回的事一个列表
 
-    List<Car> selectCarList(Car car);
+    List<Car> selectCarList(Map maps);
 }

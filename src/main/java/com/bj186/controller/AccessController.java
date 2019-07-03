@@ -6,6 +6,7 @@ import com.bj186.utils.CarCardUtil;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,6 +30,7 @@ public class AccessController {
         this.accessService = accessService;
 
     }
+
     @RequestMapping("/jioncar")
     @ResponseBody
     public Map insertAccess() {
@@ -44,7 +46,7 @@ public class AccessController {
             System.out.println("添加成功");
             map.put("data", "");
             map.put("code", "");
-            map.put("count","");
+            map.put("count", "");
             map.put("msg", "添加成功");
         } else {
             map.put("data", "");
@@ -62,11 +64,11 @@ public class AccessController {
         Map map = new HashMap<>();
         System.out.println(access);
         int i = accessService.updateAccess(access);
-        if (i == 1){
+        if (i == 1) {
             map.put("returncode", 1);
-            map.put("msg","缴费成功！");
-        }else {
-            map.put("msg","缴费失败！");
+            map.put("msg", "缴费成功！");
+        } else {
+            map.put("msg", "缴费失败！");
             map.put("returncode", -1);
         }
         return map;
@@ -74,20 +76,25 @@ public class AccessController {
 
     @RequestMapping("/access")
     @ResponseBody
-    public void selectAccessList(HttpServletResponse response, HttpServletRequest request,Access access) {
+    public void selectAccessList(HttpServletResponse response, HttpServletRequest request, Access access,Integer page ,Integer limit) {
         System.out.println("查询access列表方法");
         HttpSession session = request.getSession();
         System.out.println("拿到的session：" + session);
         Map map = new HashMap<>();
-        if (access == null) {
-            if (access.getAccessOther1().equals("0")) {
-                access.setAccessOther1(null);
-            }
-        }
-        List<Access> accessesList = accessService.selectAccessList();
+        System.out.println(access);
+//        if (access.getAccessOther1().equals("0")) {
+//            access.setAccessOther1(nul
+// l);
+//        }
+        Map maps = new HashMap<>();
+        Integer rows = 0;
+        maps.put("limits",limit);
+        maps.put("page",page);
+        maps.put("rows",rows);
+        List<Access> accessesList = accessService.selectAccessList(maps);
         map.put("data", accessesList);
         map.put("code", "");
-        map.put("count", accessesList.size());
+        map.put("count", maps.get("rows"));
         map.put("msg", "");
         JSONObject json = new JSONObject(map);
         response.setCharacterEncoding("utf-8");

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("AccessService")
 public class AccessServiceImpl implements AccessService {
@@ -30,8 +31,8 @@ public class AccessServiceImpl implements AccessService {
     }
 
     @Override
-    public List<Access> selectAccessList() {
-        return this.accessMapper.selectAccessList();
+    public List<Access> selectAccessList(Map maps) {
+        return this.accessMapper.selectAccessList(maps);
     }
 
     @Override

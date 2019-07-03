@@ -46,12 +46,15 @@ public class CarController {
     }
 
     @RequestMapping("/carlist")
-    public void selectCarList(HttpServletResponse response, HttpServletRequest request) {
+    public void selectCarList(HttpServletResponse response, HttpServletRequest request,Integer page ,Integer limit) {
         System.out.println("后台:cars/carlist--------");
         Map map = new HashMap<>();
+        Map maps = new HashMap<>();
         Car car = new Car();
         User user = new User();
-        List<Car> cars = carService.selectCarList(car);
+        maps.put("page",page);
+        maps.put("limits",limit);
+        List<Car> cars = carService.selectCarList(maps);
         System.out.println(cars);
         map.put("data", cars);
         map.put("code", "");

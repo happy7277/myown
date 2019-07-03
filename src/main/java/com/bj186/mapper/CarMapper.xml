@@ -130,22 +130,29 @@
       </if>
     </where>
   </select>
-  <select id="selectCarList" parameterType="com.bj186.pojo.Car" resultMap="BaseResultMap">
-    select car.Car_id,car.Car_card,Car_pid,u.user_name Car_other1,Car_startdate,Car_enddate,u.user_phonenumber Car_other2 from car car
-    left join user u
-    on car.Car_uid = u.user_id
-    <where>
-      <if test="carUid != null">
-        and car_uid = #{carUid}
-      </if>
-      <if test="carPid != null">
-        and car_pid = #{carPid}
-      </if>
-      <if test="carCard != null">
-        and car_card= #{carCard}
-      </if>
-    </where>
-  </select>
+  <!--<select id="selectCarList" parameterType="com.bj186.pojo.Car" resultMap="BaseResultMap">-->
+    <!--select car.Car_id,car.Car_card,Car_pid,u.user_name Car_other1,Car_startdate,Car_enddate,u.user_phonenumber Car_other2 from car car-->
+    <!--left join user u-->
+    <!--on car.Car_uid = u.user_id-->
+    <!--<where>-->
+      <!--<if test="carUid != null">-->
+        <!--and car_uid = #{carUid}-->
+      <!--</if>-->
+      <!--<if test="carPid != null">-->
+        <!--and car_pid = #{carPid}-->
+      <!--</if>-->
+      <!--<if test="carCard != null">-->
+        <!--and car_card= #{carCard}-->
+      <!--</if>-->
+    <!--</where>-->
+  <!--</select>-->
+  <select id="selectCarList" statementType="CALLABLE"  resultMap="BaseResultMap">
+       call cars(
+    #{page,mode=IN},
+    #{limits,mode=IN},
+    #{rows,mode=OUT,jdbcType=INTEGER}
+    )
 
+  </select>
 
 </mapper>

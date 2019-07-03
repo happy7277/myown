@@ -3,6 +3,7 @@ package com.bj186.service;
 import com.bj186.pojo.Access;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AccessService {
 
@@ -10,7 +11,7 @@ public interface AccessService {
 
     int updateAccess(Access access);
 
-    List<Access> selectAccessList();
+    List<Access> selectAccessList(Map maps);
 
     List<Access> selectAccess(Access access);
 }

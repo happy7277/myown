@@ -3,6 +3,7 @@ package com.bj186.mapper;
 import com.bj186.pojo.Car;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CarMapper {
 
@@ -12,7 +13,7 @@ public interface CarMapper {
 
     List<Car> selectCar(Car car);  //查找车辆信息,返回的事一个列表
 
-    List<Car> selectCarList(Car car);  //查找车辆信息(可通过车辆id查询),返回的事一个列表
+    List<Car> selectCarList(Map maps);  //查找车辆信息(可通过车辆id查询),返回的事一个列表
 
 
 

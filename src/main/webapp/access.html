@@ -52,7 +52,7 @@
                             </select>
                         </div>
                         <div class="layui-input-inline layui-show-xs-block">
-                            <input type="text" name="carcard" placeholder="请输入车牌号" autocomplete="off"
+                            <input type="text" name="accesscarcard" placeholder="请输入车牌号" autocomplete="off"
                                    class="layui-input"></div>
                         <div class="layui-input-inline layui-show-xs-block">
                             <button class="layui-btn" lay-submit lay-filter="sreach">
@@ -161,13 +161,14 @@
                                 //监听提交
                                 form.on('submit(sreach)', function(data){
                                     console.log(data);
-                                    console.log(data.field);
+                                    console.JSON.stringify(data.field);
                                     $.ajax({
                                         url:"/car/access", //处理页面的路径
                                         data:data.field, //要提交的数据是一个JSON
                                         type:"post", //提交方式
                                         // contentType:"Application/json",
                                         dataType:"json", //返回数据的类型
+                                        contentType:"Application/json",
                                         //TEXT字符串 JSON返回JSON XML返回XML
                                         success:function(re){ //回调函数 ,成功时返回的数据存在形参data里
                                             console.log(re)

@@ -109,28 +109,38 @@
     </if>
   </select>
 
-  <select id="selectAccessList" parameterType="com.bj186.pojo.Access"  resultMap="BaseResultMap">
-    select * from access
-    <where>
-      <if test="accessCarcard != null">
-       and Access_carcard = #{accessCarcard,jdbcType=VARCHAR}
-      </if>
-      <if test="accessStartdate != null">
-        and   Access_startdate = #{accessStartdate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="accessEnddate != null">
-        and  Access_enddate = #{accessEnddate,jdbcType=TIMESTAMP}
-      </if>
-      <if test="accessCost != null">
-        and  Access_cost = #{accessCost,jdbcType=VARCHAR}
-      </if>
-      <if test="accessOther1 != null">
-        and  Access_other1 = #{accessOther1,jdbcType=VARCHAR}
-      </if>
-      <if test="accessOther2 != null">
-        and  Access_other2 = #{accessOther2,jdbcType=VARCHAR}
-      </if>
-    </where>
+  <!--<select id="selectAccessList" parameterType="com.bj186.pojo.Access"  resultMap="BaseResultMap">-->
+    <!--select * from access-->
+    <!--<where>-->
+      <!--<if test="accessCarcard != null">-->
+       <!--and Access_carcard = #{accessCarcard,jdbcType=VARCHAR}-->
+      <!--</if>-->
+      <!--<if test="accessStartdate != null">-->
+        <!--and   Access_startdate = #{accessStartdate,jdbcType=TIMESTAMP}-->
+      <!--</if>-->
+      <!--<if test="accessEnddate != null">-->
+        <!--and  Access_enddate = #{accessEnddate,jdbcType=TIMESTAMP}-->
+      <!--</if>-->
+      <!--<if test="accessCost != null">-->
+        <!--and  Access_cost = #{accessCost,jdbcType=VARCHAR}-->
+      <!--</if>-->
+      <!--<if test="accessOther1 != null">-->
+        <!--and  Access_other1 = #{accessOther1,jdbcType=VARCHAR}-->
+      <!--</if>-->
+      <!--<if test="accessOther2 != null">-->
+        <!--and  Access_other2 = #{accessOther2,jdbcType=VARCHAR}-->
+      <!--</if>-->
+    <!--</where>-->
+  <!--</select>-->
+
+  <select id="selectAccessList" statementType="CALLABLE" resultMap="BaseResultMap">
+      call access(
+    #{page,mode=IN},
+    #{limits,mode=IN},
+    #{rows,mode=OUT,jdbcType=INTEGER}
+    )
+
+
   </select>
 
 </mapper>

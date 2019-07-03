@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+
 @Service("CarService")
 public class CarServiceImpl implements CarService {
 
@@ -34,7 +36,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> selectCarList(Car car) {
-        return this.carMapper.selectCarList(car);
+    public List<Car> selectCarList(Map maps) {
+        return this.carMapper.selectCarList(maps);
     }
 }
